@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" type="text/css" href="/css/login.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="/css/signup.css"> -->
+   
+  <style>
+     /* @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+     @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css"); */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+      background-color: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.47059;
+      font-weight: 400;
+      letter-spacing: -.022em;
+    }
+.alert{
+  position: relative;
+    padding: .875rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .375rem;
+}
+.alert-danger{
+  color: #e62e5c;
+    background-color: #ffebf0;
+    border-color: #ffd6e0;
+}
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 18px;
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    a img {
+      display: block;
+      margin: 0 auto 30px;
+      max-width: 150px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="checkbox"],
+    input[type="password"] {
+      border: 1px solid #d2d2d7;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      font-size: 17px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="checkbox"]:focus,
+    input[type="password"]:focus {
+      border-color: #0071e3;
+    }
+
+    .button {
+      background-color: #0071e3;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 15px;
+      font-size: 17px;
+      font-weight: 400;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .button:hover {
+      background-color: #0077ED;
+    }
+
+    .loginLink {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .alreadyAccount {
+      color: #0066CC;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .alreadyAccount:hover {
+      text-decoration: underline;
+    }
+
+    #phoneVerificationContainer {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+
+    .pe_signin_button {
+      width: 100%;
+    }
+    .pe_signin_button> * {
+      width: 100%;
+    }
+    .apple-checkbox-container {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+.apple-checkbox {
+  position: absolute;
+  opacity: 0;
+}
+
+.apple-checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox-custom {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #d2d2d7;
+  border-radius: 50%;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.apple-checkbox:checked + .apple-checkbox-label .checkbox-custom {
+  background-color: #0071e3;
+  border-color: #0071e3;
+}
+
+.checkbox-custom::after {
+  content: '\2713';
+  color: white;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.apple-checkbox:checked + .apple-checkbox-label .checkbox-custom::after {
+  opacity: 1;
+}
+
+.label-text {
+  font-size: 17px;
+  color: #1d1d1f;
+}
+
+/* Focus styles for accessibility */
+.apple-checkbox:focus + .apple-checkbox-label .checkbox-custom {
+  box-shadow: 0 0 0 3px rgba(0, 125, 250, 0.6);
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="registerForm" class="card">
+     
+      <form id="signupForm" action="/auth/signup" method="POST">
+        <a href="/"><img src="/images/XpertRupees_Logo.svg" alt=""></a>
+        <% if (typeof error !=='undefined' ) { %>
+          <div class="alert alert-danger" role="alert">
+            <%= error %>
+          </div>
+          <% } %>
+        <input type="text" name="username" placeholder="TechTasa ID" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <input type="hidden" name="userType" id="userTypeInput" value="customer">
+        <input type="hidden" name="phone" id="verifiedPhone">
+        <input type="hidden" name="countryCode" id="verifiedCountryCode">
+        <input type="text" name="referralId" placeholder="Referral ID (optional)">
+        <div class="apple-checkbox-container">
+          <input type="checkbox" id="brokerCheckbox" name="becomeBroker" class="apple-checkbox">
+          <label for="brokerCheckbox" class="apple-checkbox-label">
+            <span class="checkbox-custom"></span>
+            <span class="label-text">Work with us as a Broker ?</span>
+          </label>
+        </div>
+        <div id="phoneVerificationContainer">
+          <div class="pe_signin_button" data-client-id="18437036855414457333"></div>
+        </div>
+      </form>
+      <div class="loginLink">
+        <a href="/auth/login" class="alreadyAccount cta">Already a member? <b>Login</b></a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('brokerCheckbox').addEventListener('change', function() {
+  var userTypeInput = document.getElementById('userTypeInput');
+  if (this.checked) {
+    userTypeInput.value = 'broker';
+  } else {
+    userTypeInput.value = 'customer';
+  }
+});
+    function loadScript() {
+      const script = document.createElement('script');
+      script.src = 'https://www.phone.email/sign_in_button_v1.js';
+      script.async = true;
+
+      script.onload = function () {
+        const container = document.getElementById('phoneVerificationContainer');
+
+        // Add click event listener to the container
+        container.addEventListener('click', function (event) {
+          const form = document.getElementById('signupForm');
+          const username = form.username.value;
+          const password = form.password.value;
+          const confirmPassword = form.confirmPassword.value;
+          const email = form.email.value;
+
+          if (!username || !password || !confirmPassword || !email) {
+            event.preventDefault();
+            event.stopPropagation();
+            alert('Please fill in all required fields before verifying your phone number.');
+            return false;
+          }
+
+          if (password !== confirmPassword) {
+            event.preventDefault();
+            event.stopPropagation();
+            alert('Passwords do not match.');
+            return false;
+          }
+        }, true);  // Use capture phase to intercept the click before the button's own listener
+      }
+
+      document.body.appendChild(script);
+
+      window.phoneEmailListener = (userObj) => {
+        const { user_json_url } = userObj;
+        fetch('/auth/verify-phone', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ user_json_url }),
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              document.getElementById('verifiedPhone').value = data.phone;
+              document.getElementById('verifiedCountryCode').value = data.countryCode;
+              // alert('Phone verification successful! The form will now be submitted.');
+              document.getElementById('signupForm').submit();
+            } else {
+              alert('Phone verification failed. Please try again.');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred during phone verification.');
+          });
+      };
+    }
+
+    document.addEventListener('DOMContentLoaded', loadScript);
+  </script>
+</body> 
+</html>

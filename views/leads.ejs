@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leads</title>
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<style>
+  /* Webpixels CSS */
+  /* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
+  /* URL: https://github.com/webpixels/css */
+
+  @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+  /* Bootstrap Icons */
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+  @media (max-width: 980px) {
+    .container-fluid {
+      padding-left: 1rem !important;
+    }
+  }
+</style>
+
+<body>
+
+  <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+    <!-- Vertical Navbar -->
+    <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical">
+      <div class="container-fluid">
+        <!-- Toggler -->
+        <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Brand -->
+        <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="/">
+          <img src="/images/XpertRupees_Logo.svg" alt="...">
+        </a>
+
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidebarCollapse">
+          <!-- Navigation -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/">
+                <i class="bi bi-house"></i> Dashboard
+              </a>
+            </li>
+            <% if (userType==='admin' || userType==='hr' || userType === 'broker' ) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/management">
+                <i class="bi bi-people"></i>  <%= userType === 'broker' ? 'My Referred Users' : 'Management' %>
+              </a>
+            </li>
+            <% } %>
+            <% if (userType==='admin' || userType==='agent' || userType==='partner' || userType==='customer' || userType==='broker') { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/leads">
+                <i class="bi bi-bar-chart"></i> <%= userType === 'customer' ? 'My Leads' : 'Leads' %>
+              </a>
+            </li>
+            <% } %>
+            <% if (userType==='admin' || userType==='hr' ) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/jobs">
+                <i class="bi bi-card-list"></i> Jobs Listing
+              </a>
+            </li>
+            <% } %>
+            <% if (userType==='admin' || userType==='hr' ) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/resume">
+                <i class="bi bi-file-person"></i> Resumes
+              </a>
+            </li>
+            <% } %>
+            <% if (userType==='admin' || userType==='blog writer' ) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/blog">
+                <i class="bi bi-file-text"></i> Blog
+              </a>
+            </li>
+            <% } %>
+            <% if (userType === 'broker' && referralId) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="#" id="referralLink" data-referral-id="<%= referralId %>">
+                  <i class="bi bi-link"></i> My Referral ID:<%= referralId %>
+                </a>
+              </li>
+              <% } %>
+          </ul>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const referralLink = document.getElementById('referralLink');
+              if (referralLink) {
+                referralLink.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  const referralId = this.getAttribute('data-referral-id');
+                  navigator.clipboard.writeText(referralId).then(function() {
+                    alert('Referral ID copied to clipboard!');
+                  }, function(err) {
+                    console.error('Could not copy text: ', err);
+                  });
+                });
+              }
+            });
+          </script>
+          <!-- Divider -->
+          <hr class="navbar-divider my-5 opacity-20">
+          <!-- Navigation -->
+
+          <!-- Push content down -->
+          <div class="mt-auto"></div>
+          <!-- User (md) -->
+          <ul class="navbar-nav">
+
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/logout">
+                <i class="bi bi-box-arrow-left"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="h-screen flex-grow-1 overflow-y-lg-auto">
+      <!-- Header -->
+      <header class="bg-surface-primary border-bottom pt-6">
+        <div class="container-fluid">
+          <div class="mb-npx">
+            <div class="row align-items-center">
+              <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                <!-- Title -->
+                <h1 class="h2 mb-0 ls-tight">All Leads</h1>
+              </div>
+              <!-- Actions -->
+              <div class="col-sm-6 col-12 text-sm-end">
+                <!-- <div class="mx-n1">
+                              <a href="#" class="btn d-inline-flex btn-sm btn-neutral border-base mx-1">
+                                  <span class=" pe-2">
+                                      <i class="bi bi-pencil"></i>
+                                  </span>
+                                  <span>Edit</span>
+                              </a>
+                              <a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1">
+                                  <span class=" pe-2">
+                                      <i class="bi bi-plus"></i>
+                                  </span>
+                                  <span>Create</span>
+                              </a>
+                          </div> -->
+              </div>
+            </div>
+            <!-- Nav -->
+            <ul class="nav nav-tabs mt-4 overflow-x border-0">
+              <li class="nav-item ">
+                <a href="#" id="cardbtn" class="nav-link active ">Cards</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" id="tablebtn" class="nav-link  ">Table</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <!-- Main  -->
+      <main class="py-6 bg-surface-secondary">
+        <div class="container-fluid merabox">
+          <div id="tableres">
+
+
+            <div id="meracard" class="row ">
+              <% leads.forEach(function(lead) { %>
+              <div class="col-md-4 mb-4">
+                <div class="card">
+                  <div class="card-body flex-wrap">
+                    <h5 class="card-title"><%= lead.name %></h5>
+                    <p class="card-text p-2">Email: <%= lead.email %></p>
+                    <p class="card-text p-2">Number: <%= lead.number %></p>
+                    <p class="card-text p-2">Salary: <%= lead.salary %></p>
+                    <p class="card-text p-2">Address: <%= lead.address %></p>
+                    <p class="card-text p-2">Time to Reach: <%= lead.timeToReach %></p>
+                    <p class="card-text p-2">Reach By: <%= lead.reachBy %></p>
+                    <p class="card-text p-2">Lead Type: <%= lead.leadType %></p>
+                    <p class="card-text p-2">Date/Time: <%= lead.createdAt %></p>
+                    <p class="card-text p-2">Customer ID: <% if (lead.userId) { %>
+                      <%= lead.userId.username %> (<%= lead.userId.userType %>)
+                      <% } else { %>
+                      Not Assigned
+                      <% } %></p>
+                    <p class="text-primary p-2">Status: <%= lead.status %></p>
+                    <p class="text-danger p-2 ">Assigned To:
+                      <% if (lead.assignedTo) { %>
+                      <%= lead.assignedTo.username %>
+                      <% } else { %>
+                      Not Assigned
+                      <% } %>
+                    </p>
+                    <div class="d-flex justify-content-around flex-wrap">
+                      <button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="modal" data-target="#documentsModal<%= lead._id %>">
+                        View Documents
+                      </button>
+                      <% if (userType==='admin' ) { %>
+                      <button type="button" class="btn btn-success btn-sm mb-2" data-toggle="modal" data-target="#assignModal<%= lead._id %>">
+                        Assign Lead
+                      </button>
+                      <% } %>
+                      <% if (userType==='admin' || userType==='agent' ) { %>
+                      <button type="button" class="btn btn-info btn-sm mb-2" data-toggle="modal" data-target="#statusModal<%= lead._id %>">
+                        Lead Status
+                      </button>
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- Lead Status Modal -->
+                <div class="modal fade" id="statusModal<%= lead._id %>" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel<%= lead._id %>" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="statusModalLabel<%= lead._id %>">Update Lead Status: <%= lead.name %></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="/dashboard/leads/update-status" method="POST">
+                          <input type="hidden" name="leadId" value="<%= lead._id %>">
+                          <div class="form-group">
+                            <label for="status<%= lead._id %>">Status:</label>
+                            <select name="status" id="status<%= lead._id %>" class="form-control p-2" required>
+                              <option value="pending" <%= lead.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                              <option value="in_progress" <%= lead.status === 'in_progress' ? 'selected' : '' %>>In Progress</option>
+                              <option value="done" <%= lead.status === 'done' ? 'selected' : '' %>>Done</option>
+                              <option value="rejected" <%= lead.status === 'rejected' ? 'selected' : '' %>>Rejected</option>
+                              <option value="on_hold" <%= lead.status === 'on_hold' ? 'selected' : '' %>>On Hold</option>
+                            </select>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Update Status</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+                <!-- Documents Modal -->
+                <div class="modal fade" id="documentsModal<%= lead._id %>" tabindex="-1" role="dialog" aria-labelledby="documentsModalLabel<%= lead._id %>" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="documentsModalLabel<%= lead._id %>">Documents for <%= lead.name %>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <!-- Display the documents here. You might need to adjust this part based on how you're storing and retrieving the documents. -->
+                        <% for (let doc in lead.documents) { %>
+                        <% if (lead.documents[doc]) { %>
+                        <h5>
+                          <%= doc.charAt(0).toUpperCase() + doc.slice(1) %>:
+                        </h5>
+                        <% let extension=lead.documents[doc].split('.').pop(); %>
+                        <% if (extension==='pdf' ) { %>
+                        <iframe src="/<%= lead.documents[doc] %>" width="100%" height="300px"></iframe>
+                        <% } else { %>
+                        <a href="/<%= lead.documents[doc] %>" target="_blank">
+                          <img src="/<%= lead.documents[doc] %>" width="100%">
+                        </a>
+                        <% } %>
+                        <% } %>
+                        <% } %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Assignment Modal -->
+                <% if (userType==='admin' || userType==='agent' ) { %>
+                <div class="modal fade" id="assignModal<%= lead._id %>" tabindex="-1" role="dialog" aria-labelledby="assignModalLabel<%= lead._id %>" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="assignModalLabel<%= lead._id %>">Assign Lead: <%= lead.name %>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="/dashboard/leads/assign-lead" method="POST">
+                          <input type="hidden" name="leadId" value="<%= lead._id %>">
+                          <div class="form-group">
+                            <label for="assignType<%= lead._id %>">Assign To:</label>
+                            <!-- <select name="assignType" id="assignType<%= lead._id %>" class="form-control p-2" required>
+                        <option value="">Select Type</option>
+                        <option value="agent">Agent</option>
+                        <option value="partner">Partner</option>
+                        <option value="">No One</option> 
+                      </select> -->
+                            <select name="assignType" id="assignType<%= lead._id %>" class="form-control p-2 assign-type-select" data-agents='<%- JSON.stringify(typeof agents !== "undefined" ? agents : []) %>' data-partners='<%- JSON.stringify(typeof partners !== "undefined" ? partners : []) %>' required>
+                              <option value="">Select Type</option>
+                              <option value="agent">Agent</option>
+                              <option value="partner">Partner</option>
+                              <option value="">No One</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label id="labelhide" for="assignedTo<%= lead._id %>">Select User:</label>
+                            <select name="assignedTo" id="assignedTo<%= lead._id %>" class="form-control p-2" required>
+                              <option value="">Select User</option>
+                            </select>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Assign</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+              </div>
+              <% }); %>
+            </div>
+
+
+            <table style="display: none;" id="meratable" class="table table-hover table-nowrap">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Number</th>
+                  <th scope="col">Salary</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Time to Reach</th>
+                  <th scope="col">Reach By</th>
+                  <th scope="col">Lead Type</th>
+                  <th scope="col">Date/Time</th>
+                  <th scope="col">Assigned To</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% leads.forEach(function(lead) { %>
+                <tr>
+                  <td><span class="text-heading font-semibold">
+                      <%= lead.name %>
+                    </span></td>
+                  <td>
+                    <%= lead.email %>
+                  </td>
+                  <td>
+                    <%= lead.number %>
+                  </td>
+                  <td>
+                    <%= lead.salary %>
+                  </td>
+                  <td>
+                    <%= lead.address %>
+                  </td>
+                  <td>
+                    <%= lead.timeToReach %>
+                  </td>
+                  <td>
+                    <%= lead.reachBy %>
+                  </td>
+                  <td>
+                    <%= lead.leadType %>
+                  </td>
+                  <td>
+                    <%= lead.createdAt %>
+                  </td>
+                  <td>
+                    <% if (lead.assignedTo) { %>
+                    <%= lead.assignedTo.username %>
+                    <% } else { %>
+                    Not Assigned
+                    <% } %>
+                  </td>
+                  <td>
+                    <%= lead.status %>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#documentsModalTable<%= lead._id %>">
+                      View Documents
+                    </button>
+                    <% if (userType==='admin' ) { %>
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#assignModalTable<%= lead._id %>">
+                      Assign Lead
+                    </button>
+                    <% } %>
+                    <% if (userType==='admin' ) { %>
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#statusModalTable<%= lead._id %>">
+                      Update Status
+                    </button>
+                    <% } %>
+
+                    <!-- Documents Modal -->
+                    <div class="modal fade" id="documentsModalTable<%= lead._id %>" tabindex="-1" role="dialog" aria-labelledby="documentsModalLabelTable<%= lead._id %>" aria-hidden="true">
+                      <!-- ... (keep your existing documents modal code) ... -->
+
+
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="documentsModalLabel<%= lead._id %>">Documents for <%=
+                            lead.name %>
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <!-- Display the documents here. You might need to adjust this part based on how you're storing and retrieving the documents. -->
+                            <% for (let doc in lead.documents) { %>
+                            <% if (lead.documents[doc]) { %>
+                            <h5>
+                              <%= doc.charAt(0).toUpperCase() + doc.slice(1) %>:
+                            </h5>
+                            <% let extension=lead.documents[doc].split('.').pop(); %>
+                            <% if (extension==='pdf' ) { %>
+
+                            <iframe src="/<%= lead.documents[doc] %>" width="100%" height="300px"></iframe>
+
+                            <% } else { %>
+                            <a href="/<%= lead.documents[doc] %>" target="_blank">
+                              <img src="/<%= lead.documents[doc] %>" width="100%">
+                            </a>
+                            <% } %>
+                            <% } %>
+                            <% } %>
+                          </div>
+
+
+
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                    <% if (userType==='admin' || userType==='agent' ) { %>
+                    <!-- Assignment Modal -->
+                    <div class="modal fade" id="assignModalTable<%= lead._id %>" tabindex="-1" role="dialog" aria-labelledby="assignModalLabelTable<%= lead._id %>" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="assignModalLabel<%= lead._id %>">Assign Lead: <%=
+                              lead.name %>
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="/dashboard/leads/assign-lead" method="POST">
+                              <input type="hidden" name="leadId" value="<%= lead._id %>">
+                              <div class="form-group">
+                                <label for="assignType<%= lead._id %>">Assign To:</label>
+                                <select name="assignType" id="assignType<%= lead._id %>" class="form-control p-2" required>
+                                  <option value="">Select Type</option>
+                                  <option value="agent">Agent</option>
+                                  <option value="partner">Partner</option>
+                                  <option value="">No One</option> <!-- Add this option -->
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label id="labelhide" for="assignedTo<%= lead._id %>">Select User:</label>
+                                <select name="assignedTo" id="assignedTo<%= lead._id %>" class="form-control p-2" required>
+                                  <option value="">Select User</option>
+                                </select>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Assign</button>
+                            </form>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% } %>
+
+
+
+
+                    <!-- Lead Status Modal -->
+                    <div class="modal fade" id="statusModalTable<%= lead._id %>" tabindex="-1" role="dialog" aria-labelledby="statusModalLabelTable<%= lead._id %>" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="statusModalLabelTable<%= lead._id %>">Update Lead Status: <%= lead.name %></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="/dashboard/leads/update-status" method="POST">
+                              <input type="hidden" name="leadId" value="<%= lead._id %>">
+                              <div class="form-group">
+                                <label for="statusTable<%= lead._id %>">Status:</label>
+                                <select name="status" id="statusTable<%= lead._id %>" class="form-control p-2" required>
+                                  <option value="pending" <%= lead.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                                  <option value="in_progress" <%= lead.status === 'in_progress' ? 'selected' : '' %>>In Progress</option>
+                                  <option value="done" <%= lead.status === 'done' ? 'selected' : '' %>>Done</option>
+                                  <option value="rejected" <%= lead.status === 'rejected' ? 'selected' : '' %>>Rejected</option>
+                                  <option value="on_hold" <%= lead.status === 'on_hold' ? 'selected' : '' %>>On Hold</option>
+                                </select>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Update Status</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+
+
+
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById("cardbtn").addEventListener("click", () => {
+      event.preventDefault();
+      document.getElementById('meracard').style.display = "flex";
+      document.getElementById('meratable').style.display = "none";
+      document.getElementById('tableres').classList.remove("table-responsive")
+      document.getElementById("cardbtn").classList.add("active");
+      document.getElementById("tablebtn").classList.remove("active");
+    })
+    document.getElementById("tablebtn").addEventListener("click", () => {
+      event.preventDefault();
+      document.getElementById('meracard').style.display = "none";
+      document.getElementById('meratable').style.display = "block";
+      document.getElementById('tableres').classList.add("table-responsive")
+      document.getElementById("cardbtn").classList.remove("active");
+      document.getElementById("tablebtn").classList.add("active");
+
+    })
+    // Reinitialize Bootstrap modals
+    let modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+      let bootstrapModal = bootstrap.Modal.getInstance(modal);
+      if (bootstrapModal) {
+        bootstrapModal.dispose();
+      }
+      new bootstrap.Modal(modal);
+    });
+  </script>
+  <!-- <script>
+   document.addEventListener('DOMContentLoaded', function () {
+  const assignTypeSelects = document.querySelectorAll('select[name="assignType"]');
+  const agents = <%- JSON.stringify(agents) %>;
+  const partners = <%- JSON.stringify(partners) %>;
+  assignTypeSelects.forEach(select => {
+    select.addEventListener('change', function () {
+      const assignedToSelect = this.closest('.modal-body').querySelector('select[name="assignedTo"]');
+      assignedToSelect.innerHTML = '<option value="">Select User</option>';
+      const selectedType = this.value;
+      const users = selectedType === 'agent' ? agents : selectedType === 'partner' ? partners : []; // Check if selectedType is empty
+
+      users.forEach(user => {
+        const option = document.createElement('option');
+        option.value = user._id;
+        option.textContent = user.username;
+        assignedToSelect.appendChild(option);
+      });
+
+      // If "No One" is selected, remove the required attribute from the assignedTo field
+      if (selectedType === '') {
+        assignedToSelect.value = '';
+        assignedToSelect.removeAttribute('required');
+        assignedToSelect.style.display="none"
+        document.getElementById("labelhide").style.display="none"
+      } else {
+        assignedToSelect.setAttribute('required', true);
+        assignedToSelect.style.display="block"
+        document.getElementById("labelhide").style.display="block"
+      }
+    });
+  });
+});
+  </script> -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const assignTypeSelects = document.querySelectorAll('.assign-type-select');
+      assignTypeSelects.forEach(select => {
+        const agents = JSON.parse(select.dataset.agents || '[]');
+        const partners = JSON.parse(select.dataset.partners || '[]');
+
+        select.addEventListener('change', function() {
+          const assignedToSelect = this.closest('.modal-body').querySelector('select[name="assignedTo"]');
+          assignedToSelect.innerHTML = '<option value="">Select User</option>';
+          const selectedType = this.value;
+          const users = selectedType === 'agent' ? agents : selectedType === 'partner' ? partners : [];
+
+          users.forEach(user => {
+            const option = document.createElement('option');
+            option.value = user._id;
+            option.textContent = user.username;
+            assignedToSelect.appendChild(option);
+          });
+
+          if (selectedType === '') {
+            assignedToSelect.value = '';
+            assignedToSelect.removeAttribute('required');
+            assignedToSelect.style.display = "none";
+            this.closest('.modal-body').querySelector("#labelhide").style.display = "none";
+          } else {
+            assignedToSelect.setAttribute('required', true);
+            assignedToSelect.style.display = "block";
+            this.closest('.modal-body').querySelector("#labelhide").style.display = "block";
+          }
+        });
+      });
+    });
+  </script>
+</body>
+<script src="/js/navToggle.js"></script>
+
+</html>

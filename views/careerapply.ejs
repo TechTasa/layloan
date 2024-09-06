@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply For Job</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/apply.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div id="menu"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2" width="44"
+                height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#1b1dc7" fill="none" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <line x1="4" y1="6" x2="20" y2="6" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="18" x2="20" y2="18" />
+            </svg></div>
+            <a href="/" class="logo"><img src="/images/XpertRupees_Logo.svg" alt=""></a>
+            <ul class="links">
+                <li class=" link active"><a href="/">Home</a></li>
+                <li class=" link"><a href="/services">Services</a></li>
+                <li class=" link"><a href="/career">Career</a></li>
+                <li class=" link"><a href="/contact">Contact</a></li>
+            </ul>
+          
+            <button class="cta" onClick='location="/auth/login"'>Sign In</button>
+            
+    </nav>
+    <div class="container">
+        <div class="title">Apply for <%= job.title %></div>
+        <iframe src="/<%= job.document %>" frameborder="0" width="100%" height="500px"></iframe>
+        <form action="/career/apply/<%= job._id %>" method="POST" enctype="multipart/form-data">
+            <div class="user__details">
+                <div class="input__box">
+                    <span class="details">Full Name</span>
+                    <input type="text" id="name" name="name" placeholder="E.g: John Smith" required>
+                  </div>
+              <div class="input__box">
+                <span class="details">Email</span>
+                <input type="email" id="email" name="email" placeholder="johnsmith@hotmail.com" required>
+              </div>
+              <div class="input__box">
+                <span class="details">Phone Number</span>
+                <input type="tel" id="phone" name="phone" placeholder="012-345-6789" required>
+              </div>
+              <div class="input__box">
+                <span class="details">Upload Resume</span>
+                <input type="file" id="document" name="document" required>
+              </div>
+            </div>
+            
+          <div class="button">
+            <input type="submit" value="Submit">
+          </div>
+        </form>
+    </div>
+</body>
+<script src="/js/script.js"></script>
+</html>

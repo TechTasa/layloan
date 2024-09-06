@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= blog.title %></title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <link rel="stylesheet" href="//cdn.quilljs.com/1.3.6/quill.bubble.css">
+    <link rel="stylesheet" href="//cdn.quilljs.com/1.3.6/quill.snow.css">
+    <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+</head>
+<body>
+    <!-- <h1><%= blog.title %></h1>
+    <p>By <%= blog.author %> on <%= blog.date.toDateString() %></p> -->
+    <div id="blog-content"></div>
+    <script>
+        var quill = new Quill('#blog-content', {
+            readOnly: true,
+            theme: 'bubble'
+        });
+        quill.setContents(<%- blog.contentDelta %>);
+    </script>
+</body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+</html>

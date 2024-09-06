@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog List</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+    <link rel="stylesheet" href="//cdn.quilljs.com/1.3.6/quill.bubble.css">
+    <link rel="stylesheet" href="//cdn.quilljs.com/1.3.6/quill.snow.css">
+    <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+    <style>
+        /* Webpixels CSS */
+        /* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
+        /* URL: https://github.com/webpixels/css */
+    
+        @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+    
+        /* Bootstrap Icons */
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+    </style>
+</head>
+<body>
+    <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+        <!-- Vertical Navbar -->
+        <nav
+          class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg"
+          id="navbarVertical">
+          <div class="container-fluid">
+            <!-- Toggler -->
+            <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse"
+              aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Brand -->
+            <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="/">
+              <img src="/images/XpertRupees_Logo.svg" alt="...">
+            </a>
+    
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="sidebarCollapse">
+              <!-- Navigation -->
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="/dashboard/">
+                    <i class="bi bi-house"></i> Dashboard
+                  </a>
+                </li>
+                <% if (userType==='admin' || userType==='hr' ) { %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/dashboard/management">
+                      <i class="bi bi-people"></i> Management
+                    </a>
+                  </li>
+                  <% } %>
+                    <% if (userType === 'admin' || userType === 'agent') { %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/dashboard/leads">
+                      <i class="bi bi-bar-chart"></i> Leads
+                    </a>
+                  </li>
+                  <% } %>
+                    <% if (userType==='admin' || userType==='hr' ) { %>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/dashboard/jobs">
+                          <i class="bi bi-card-list"></i> Jobs Listing
+                        </a>
+                      </li>
+                      <% } %>
+                        <% if (userType==='admin' || userType==='hr' ) { %>
+                          <li class="nav-item">
+                            <a class="nav-link" href="/dashboard/resume">
+                               <i class="bi bi-file-person"></i> Resumes
+                            </a>
+                          </li>
+                          <% } %>
+                            <% if (userType==='admin' || userType==='blog writer' ) { %>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/dashboard/blog">
+                                  <i class="bi bi-file-text"></i> Blog
+                                </a>
+                              </li>
+                              <% } %>
+              </ul>
+              <!-- Divider -->
+              <hr class="navbar-divider my-5 opacity-20">
+              <!-- Navigation -->
+    
+              <!-- Push content down -->
+              <div class="mt-auto"></div>
+              <!-- User (md) -->
+              <ul class="navbar-nav">
+    
+                <li class="nav-item">
+                  <a class="nav-link" href="/auth/logout">
+                    <i class="bi bi-box-arrow-left"></i> Logout
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+    
+        <div class="h-screen flex-grow-1 overflow-y-lg-auto">
+          <!-- Header -->
+          <header class="bg-surface-primary border-bottom pt-6">
+            <div class="container-fluid">
+              <div class="mb-npx">
+                <div class="row align-items-center">
+                  <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                    <!-- Title -->
+                    <h1 class="h2 mb-0 ls-tight">All Blogs</h1>
+                  </div>
+                  <!-- Actions -->
+                  <div class="col-sm-6 col-12 text-sm-end">
+                    <div class="mx-n1">
+                                  <a href="/dashboard/blog/create" class="btn d-inline-flex btn-sm btn-primary mx-1">
+                                      <span class=" pe-2">
+                                          <i class="bi bi-plus"></i>
+                                      </span>
+                                      <span>Create</span>
+                                  </a>
+                              </div>
+                  </div>
+                </div>
+                <!-- Nav -->
+                <ul class="nav nav-tabs mt-4 overflow-x border-0">
+                  <!-- <li class="nav-item ">
+                              <a href="#" class="nav-link active">All files</a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="#" class="nav-link font-regular">Shared</a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="#" class="nav-link font-regular">File requests</a>
+                          </li> -->
+                </ul>
+              </div>
+            </div>
+          </header>
+          <!-- Main -->
+          <main class="py-6 bg-surface-secondary">
+            <div class="container-fluid">
+              <div class="table-responsive">
+                <table class="table table-hover table-nowrap">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Title</th>
+                      <th scope="col">Author</th>
+                      <th colspan="2" scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% blogs.forEach(function(blog) { %>
+                      <tr>
+                        <td>
+                          <span class="text-heading font-semibold">
+                            <%= blog.title %>
+                          </span>
+                        </td>
+                        <td>
+                            <%= blog.author %>
+                        </td>
+                        <td>
+                            <a href="/dashboard/blog/edit/<%= blog._id %>" class="btn btn-sm btn-neutral">Edit</a>
+                        </td>
+                        <td>
+                            <a href="/dashboard/blog/delete/<%= blog._id %>" onclick="return confirm('Are you sure you want to delete this Blog?');" class="btn btn-sm btn-neutral"><i class="bi bi-trash"></i></a>
+                        </td>
+                      </tr>
+                      <% }); %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+</body>
+<script src="/js/navToggle.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+</html>

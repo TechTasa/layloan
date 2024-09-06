@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leads</title>
+</head>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<style>
+  /* Webpixels CSS */
+  /* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
+  /* URL: https://github.com/webpixels/css */
+
+  @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+
+  /* Bootstrap Icons */
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+  @media (max-width: 980px) {
+    .container-fluid {
+      padding-left: 1rem !important;
+    }
+  }
+</style>
+
+<body>
+
+  <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
+    <!-- Vertical Navbar -->
+    <nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical">
+      <div class="container-fluid">
+        <!-- Toggler -->
+        <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Brand -->
+        <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="/">
+          <img src="/images/XpertRupees_Logo.svg" alt="...">
+        </a>
+
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidebarCollapse">
+          <!-- Navigation -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/">
+                <i class="bi bi-house"></i> Dashboard
+              </a>
+            </li>
+            <% if (userType==='admin' || userType==='hr' || userType === 'broker' ) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/management">
+                <i class="bi bi-people"></i> <%= userType === 'broker' ? 'My Referred Users' : 'Management' %>
+              </a>
+            </li>
+            <% } %>
+            <% if (userType==='admin' || userType==='agent' || userType==='partner' || userType==='customer' || userType==='broker') { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/leads">
+                <i class="bi bi-bar-chart"></i> <%= userType === 'customer' ? 'My Leads' : 'Leads' %>
+              </a>
+            </li>
+            <% } %>
+            <% if (userType==='admin' || userType==='hr' ) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/jobs">
+                <i class="bi bi-card-list"></i> Jobs Listing
+              </a>
+            </li>
+            <% } %>
+            <% if (userType==='admin' || userType==='hr' ) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/resume">
+                <i class="bi bi-file-person"></i> Resumes
+              </a>
+            </li>
+            <% } %>
+            <% if (userType==='admin' || userType==='blog writer' ) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/blog">
+                <i class="bi bi-file-text"></i> Blog
+              </a>
+            </li>
+            <% } %>
+            <% if (userType === 'broker' && referralId) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="referralLink" data-referral-id="<%= referralId %>">
+                <i class="bi bi-link"></i> My Referral ID:<%= referralId %>
+              </a>
+            </li>
+            <% } %>
+          </ul>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const referralLink = document.getElementById('referralLink');
+              if (referralLink) {
+                referralLink.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  const referralId = this.getAttribute('data-referral-id');
+                  navigator.clipboard.writeText(referralId).then(function() {
+                    alert('Referral ID copied to clipboard!');
+                  }, function(err) {
+                    console.error('Could not copy text: ', err);
+                  });
+                });
+              }
+            });
+          </script>
+          <!-- Divider -->
+          <hr class="navbar-divider my-5 opacity-20">
+          <!-- Navigation -->
+
+          <!-- Push content down -->
+          <div class="mt-auto"></div>
+          <!-- User (md) -->
+          <ul class="navbar-nav">
+
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/logout">
+                <i class="bi bi-box-arrow-left"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="h-screen flex-grow-1 overflow-y-lg-auto">
+      <!-- Header -->
+      <header class="bg-surface-primary border-bottom pt-6">
+        <div class="container-fluid">
+          <div class="mb-npx">
+            <div class="row align-items-center">
+              <div class="col-sm-6 col-12 mb-4 mb-sm-0">
+                <!-- Title -->
+                <h1 class="h2 mb-0 ls-tight">All Leads</h1>
+              </div>
+              <!-- Actions -->
+              <div class="col-sm-6 col-12 text-sm-end">
+                <!-- <div class="mx-n1">
+                              <a href="#" class="btn d-inline-flex btn-sm btn-neutral border-base mx-1">
+                                  <span class=" pe-2">
+                                      <i class="bi bi-pencil"></i>
+                                  </span>
+                                  <span>Edit</span>
+                              </a>
+                              <a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1">
+                                  <span class=" pe-2">
+                                      <i class="bi bi-plus"></i>
+                                  </span>
+                                  <span>Create</span>
+                              </a>
+                          </div> -->
+              </div>
+            </div>
+            <!-- Nav -->
+            <!-- <ul class="nav nav-tabs mt-4 overflow-x border-0">
+              <li class="nav-item ">
+                <a href="leads/creditcard" id="cardbtn" class="nav-link active ">Credit Cards</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" id="tablebtn" class="nav-link  ">Personal Loans</a>
+              </li>
+            </ul> -->
+          </div>
+        </div>
+      </header>
+      <!-- Main  -->
+      <main class="py-6 bg-surface-secondary">
+        <div class="container-fluid merabox">
+            <div class="cards-grid">
+                <a href="leads/creditcard" class="wrapper-card" id="creditcard">
+                    <span>
+                        <h1 class="card-title">CREDIT CARD</h1>
+                        <img src="../images/debit-card.png" alt="">
+                    </span>
+                    
+                </a>
+    
+                <a href="leads/personalloan" class="wrapper-card" id="personalloan" ;>
+                    <span>
+                        <h1 class="card-title">PERSONAL LOAN</h1>
+                        <img src="../images/loan.png" alt="">
+                    </span>
+                   
+                </a>
+                <a href="leads/microloan" class="wrapper-card" id="microloan">
+                    <span>
+                        <h1 class="card-title">MICRO LOANS (Under ₹50K)</h1>
+                        <img src="../images/micro-loan.png" alt="">
+                    </span>
+                   
+                </a>
+                <a href="leads/businessloan" class="wrapper-card" id="businessloan">
+                    <span>
+                        <h1 class="card-title">BUSINESS LOAN</h1>
+                        <img src="../images/Home-loan.png" alt="">
+                    </span>
+                  
+                </a>
+                <a href="leads/homeloan" class="wrapper-card" id="homeloan">
+                    <span>
+                        <h1 class="card-title">NEW HOME LOAN</h1>
+                        <img src="../images/home-loans.png" alt="">
+                    </span>
+                   
+                </a>
+    
+                <a href="leads/automobileloan" class="wrapper-card" id="automobileloan">
+                    <span>
+                        <h1 class="card-title">Auto Mobile Loan</h1>
+                        <img src="../images/car-loan.png" alt="">
+                    </span>
+                  
+                </a>
+                <a href="leads/educationloan" class="wrapper-card" id="educationloan">
+                    <span>
+                        <h1 class="card-title">Education Loan</h1>
+                        <img src="../images/tuition.png" alt="">
+                    </span>
+                   
+                </a>
+                <a href="leads/propertyloan" class="wrapper-card" id="propertyloan">
+                    <span>
+                        <h1 class="card-title">Loan Against Property</h1>
+                        <img src="../images/loanagaintp.png" alt="">
+                    </span>
+                   
+                </a>
+                <a href="leads/productloan" class="wrapper-card" id="productloan">
+                    <span>
+                        <h1 class="card-title">Product Loan</h1>
+                        <img src="../images/phoneloan.png" alt="">
+                    </span>
+                  
+                </a>
+                <a href="leads/serviceloan" class="wrapper-card" id="serviceloan">
+                    <span>
+                        <h1 class="card-title">Service Loan</h1>
+                        <img src="../images/serviceloan.png" alt="">
+                    </span>
+                    
+                </a> 
+                
+              <a href="leads/terminsurance" class="wrapper-card" id="lifeinsurance">
+                <span>
+                    <h1 class="card-title">TERM INSURANCE</h1>
+                    <img src="../images/TErmlife-insurance.png" alt="">
+                </span>
+            </a>
+        
+            <a href="leads/healthinsurance" class="wrapper-card" id="healthinsurance">
+                <span>
+                    <h1 class="card-title">HEALTH INSURANCE</h1>
+                    <img src="../images/healthcare-insurance.png" alt="">
+                </span>
+            </a>
+        
+            <a href="leads/returnplan" class="wrapper-card" id="returnplan">
+                <span>
+                    <h1 class="card-title">RETURN PLAN</h1>
+                    <img src="../images/return-on-investment.png" alt="">
+                </span>
+            </a>
+        
+            <a href="leads/mutualfund" class="wrapper-card" id="mutualfunds">
+                <span>
+                    <h1 class="card-title">MUTUAL FUND</h1>
+                    <img src="../images/mutual funds.png" alt="">
+                </span>
+            </a>
+        
+            <a href="leads/automobileinsurance" class="wrapper-card" id="automobile">
+                <span>
+                    <h1 class="card-title">AUTO MOBILE INSURANCE</h1>
+                    <img src="../images/car-loan.png" alt="">
+                </span>
+            </a>
+        
+            <a href="leads/propertyinsurance" class="wrapper-card" id="property">
+                <span>
+                    <h1 class="card-title">PROPERTY INSURANCE</h1>
+                    <img src="../images/loanagaintp.png" alt="">
+                </span>
+            </a>
+        
+            <a href="leads/productinsurance" class="wrapper-card" id="product">
+                <span>
+                    <h1 class="card-title">PRODUCT INSURANCE</h1>
+                    <img src="../images/phoneloan.png" alt="">
+                </span>
+            </a>
+            </div>
+         
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const assignTypeSelects = document.querySelectorAll('.assign-type-select');
+      assignTypeSelects.forEach(select => {
+        const agents = JSON.parse(select.dataset.agents || '[]');
+        const partners = JSON.parse(select.dataset.partners || '[]');
+
+        select.addEventListener('change', function() {
+          const assignedToSelect = this.closest('.modal-body').querySelector('select[name="assignedTo"]');
+          assignedToSelect.innerHTML = '<option value="">Select User</option>';
+          const selectedType = this.value;
+          const users = selectedType === 'agent' ? agents : selectedType === 'partner' ? partners : [];
+
+          users.forEach(user => {
+            const option = document.createElement('option');
+            option.value = user._id;
+            option.textContent = user.username;
+            assignedToSelect.appendChild(option);
+          });
+
+          if (selectedType === '') {
+            assignedToSelect.value = '';
+            assignedToSelect.removeAttribute('required');
+            assignedToSelect.style.display = "none";
+            this.closest('.modal-body').querySelector("#labelhide").style.display = "none";
+          } else {
+            assignedToSelect.setAttribute('required', true);
+            assignedToSelect.style.display = "block";
+            this.closest('.modal-body').querySelector("#labelhide").style.display = "block";
+          }
+        });
+      });
+    });
+  </script>
+  <script src="/js/navToggle.js"></script>
+</body>
+
+</html>
