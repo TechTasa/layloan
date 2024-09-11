@@ -11,7 +11,221 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 </head>
+<style>
+  /* Combined CSS */
+  body {
+          font-family: 'Arial', sans-serif;
+          margin: 0;
+          padding: 0;
+          background: #f0f4f8;
+          color: black;
+      }
 
+      header {
+        background: linear-gradient(to left, #0561CA, #00278C);
+          color: #fff;
+          padding: 1.5em 2em;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+      }
+
+      header h1 {
+          margin: 0;
+          font-size: 2.4em;
+          letter-spacing: 1px;
+      }
+
+      .container {
+          padding: 2em;
+      }
+
+      section {
+          margin-bottom: 2em;
+          background: #fff;
+          border-radius: 12px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          padding: 2em;
+      }
+
+      h2 {
+          color: #00278C;
+          font-size: 2em;
+          margin-bottom: 1em;
+          position: relative;
+      }
+
+      h2::after {
+          content: '';
+          display: block;
+          width: 50px;
+          height: 5px;
+          background: #00278C;
+          position: absolute;
+          bottom: -10px;
+          left: 0;
+      }
+
+      .card-types {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1em;
+          justify-content: center;
+      }
+
+      .card-type {
+          flex: 1 1 calc(33.333% - 1em); /* For three cards in the first row */
+          background: #f9f9f9;
+          border-radius: 8px;
+          padding: 1.5em;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          transition: box-shadow 0.3s;
+          box-sizing: border-box;
+      }
+
+      .card-type:nth-child(4), .card-type:nth-child(5) {
+          flex: 1 1 calc(50% - 1em); /* For two centered cards in the second row */
+      }
+
+      .card-type:hover {
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-type h3 {
+          margin-top: 0;
+          color: #00278C;
+      }
+
+      .faq-section {
+          display: flex;
+          flex-direction: column;
+          gap: 1em;
+      }
+
+      .faq-item {
+          background: #f9f9f9;
+          border-radius: 8px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          overflow: hidden;
+          transition: box-shadow 0.3s;
+      }
+
+      .faq-item:hover {
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .faq-question {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 1em;
+          cursor: pointer;
+          position: relative;
+          background: #fff;
+          font-weight: bold;
+      }
+
+      .faq-question::after {
+          content: '\002B'; /* Unicode for plus sign */
+          font-size: 1.5em;
+          color: #00278C;
+          margin-left: 1em;
+          transition: transform 0.3s;
+      }
+
+      .faq-question.active::after {
+          content: '\2212'; /* Unicode for minus sign */
+          color: #00278C;
+      }
+
+      .faq-answer {
+          display: none;
+          padding: 1em;
+          background: #f4f4f4;
+      }
+
+      .faq-answer.show {
+          display: block;
+      }
+
+      /* Media Queries for Responsiveness */
+      @media (max-width: 1200px) {
+          .card-type {
+              flex: 1 1 calc(50% - 1em); /* Two cards per row */
+          }
+
+          .card-type:nth-child(4), .card-type:nth-child(5) {
+              flex: 1 1 calc(100% - 1em); /* Full-width for the last two cards */
+          }
+      }
+
+      @media (max-width: 768px) {
+          header h1 {
+              font-size: 1.8em;
+          }
+
+          section {
+              padding: 1.5em;
+          }
+
+          .container {
+              padding: 1.5em;
+          }
+
+          .card-type {
+              flex: 1 1 calc(100% - 1em); /* Full-width cards */
+          }
+
+          h2 {
+              font-size: 1.6em;
+          }
+
+      }
+
+      @media (max-width: 480px) {
+          header h1 {
+              font-size: 1.5em;
+          }
+
+          .faq-question {
+              font-size: 1.2em;
+          }
+
+          .faq-answer {
+              font-size: 0.9em;
+          }
+
+          h2 {
+              font-size: 1.4em;
+          }
+      }
+      #selection ul{
+         line-height: 2rem;
+      }
+      #benefits ul{
+         line-height: 2rem;
+      }
+      #apply ol{
+         line-height: 2rem;
+      }
+      #apply p {
+         color: black;
+      }
+      .card-type p{
+        color: black;
+      }
+      .services1 h1{
+        text-align: center;
+        font-weight: 800;
+        margin-bottom: 2rem;
+      }
+      .icons a {
+      margin: 8px;
+      font-size: 20px;
+      color: white;
+}
+</style>
 <body>
   <nav class="navbar">
     <div id="menu"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2" width="44"
@@ -22,7 +236,7 @@
         <line x1="4" y1="12" x2="20" y2="12" />
         <line x1="4" y1="18" x2="20" y2="18" />
       </svg></div>
-    <a href="/" class="logo"><img src="../images/XpertRupees_Logo.svg" alt=""></a>
+    <a href="/" class="logo"><img src="../images/logolayloan.png" alt="" style="width: 120px;"></a>
     <ul class="links">
       <li class=" link "><a href="/">Home</a></li>
       <li class=" link active"><a href="/services">Services</a></li>
@@ -36,288 +250,68 @@
         <button class="cta" onClick='location="/auth/login"'>Sign In</button>
         <% } %>
   </nav>
-  <div class="services">
-    <div class="container p-5" style="background:linear-gradient(to left, #0561CA,#00278C);">
-      <h4>Personal Loans</h4>
-    </div>
-    <style>
-      /*  */
-      .cards11 {
-        max-width: 1120px;
-        margin: 0 auto;
-        /* display: grid; */
-        gap: 1rem;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      }
+  <h1 style="text-align: center; font-weight: 800; margin-bottom: 5rem; margin-top: 2rem;">Personal Loan</h1>
+  <section id="apply" class="container">
+      <h2>Personal Loan Services</h2>
+      <p>A personal loan provides you with a lump sum of money that you repay in fixed monthly installments over a set period. It's designed to meet various financial needs, such as home renovations, debt consolidation, or funding major purchases. Unlike credit cards, personal loans often come with lower interest rates, making them a cost-effective borrowing option.</p>
+  </section>
 
-      .card12 {
-        /* background-color: dodgerblue; */
-        color: white;
-        padding: 1rem;
-        /* height: 4rem; */
-      }
+  <section id="selection" class="container">
+      <h2>Why Choose Our Personal Loans?</h2>
+      <ul>
+          <li><strong>Wide Range of Options:</strong> We partner with all major banks and financial institutions across India to offer a variety of personal loan options. This ensures you can find a loan that fits your specific financial situation and goals.</li>
+          <li><strong>Competitive Interest Rates:</strong> Our personal loans come with attractive interest rates, helping you save on borrowing costs. Lower rates mean more manageable monthly payments and less overall interest paid over the loan term.</li>
+          <li><strong>Flexible Repayment Terms:</strong> Choose from various repayment terms to fit your budget and financial plans. We offer flexible options to ensure your loan is convenient and stress-free.</li>
+          <li><strong>Minimal Documentation:</strong> Our streamlined application process requires minimal documentation, making it quick and easy to apply for a personal loan. Get the funds you need without the hassle.</li>
+          <li><strong>24/7 Customer Support:</strong> Our dedicated customer service team is always available to assist you with any questions or issues related to your personal loan. We're here to support you every step of the way.</li>
+      </ul>
+  </section>
 
-      .text2 h1 {
-        color: black;
-      }
+  <section id="benefits" class="container">
+      <h2>Types of Personal Loans We Offer</h2>
+      <ul>
+          <li><strong>Debt Consolidation Loans:</strong> Combine multiple debts into a single loan with a lower interest rate, making it easier to manage your finances and reduce your overall debt. This type of loan can simplify your monthly payments and help you get out of debt faster.</li>
+          <li><strong>Home Renovation Loans:</strong> Get the funds you need to upgrade and improve your home, adding value and comfort to your living space. Whether you're looking to remodel your kitchen, add an extension, or renovate your bathroom, a home renovation loan can help make your dream home a reality.</li>
+          <li><strong>Medical Expense Loans:</strong> Cover unexpected medical expenses or elective procedures with a personal loan, ensuring you get the care you need without financial stress. This loan can help you pay for surgeries, treatments, or even cosmetic procedures that aren't covered by insurance.</li>
+          <li><strong>Wedding Loans:</strong> Finance your dream wedding with a personal loan, covering everything from venue costs to honeymoon expenses. Make your special day perfect without worrying about the financial burden, from catering and decorations to travel and attire.</li>
+          <li><strong>Education Loans:</strong> Invest in your or your child's future with a loan to cover tuition fees, books, and other educational expenses. Our education loans offer competitive rates and flexible terms to support your academic goals.</li>
+      </ul>
+  </section>
 
-      .text2 p {
-        color: black;
-      }
-    </style>
-    <div class="cards11">
-      <div class="card12">
-        <div class="text2">
-          <h1>Short Content:- </h1>
-          <ul style="list-style: decimal;color: #000000;">
-            <li>
-              A Personal Loan, offered by financial institutions, is an unsecured form of credit extended to
-              individuals. This type of loan considers various factors such as employment background, ability to repay,
-              income, occupation, and credit track record. Commonly referred to as a consumer loan, it serves as a
-              versatile financial tool to address diverse immediate requirements.
-            </li>
-            <li>
-              A personal loan, which you can get from banks or other financial institutions, is like borrowing money
-              without needing to put up any collateral. They look at things like your job history, how much you earn,
-              what you do for a living, and how well you've paid back loans before. People often call it a consumer
-              loan, and it's handy for all sorts of things you need money for right now.
-            </li>
-            <li>
-              A personal loan, obtainable from banks or other financial institutions, allows individuals to borrow money
-              without the requirement of collateral. Lenders assess various factors such as employment history, income
-              level, occupation, and past loan repayment performance to determine eligibility. Commonly referred to as a
-              consumer loan, it serves as a flexible financial tool for addressing immediate monetary needs across a
-              wide range of purposes.
-            </li>
-          </ul>
-        </div>
-        <div class="text2">
-          <h1>Deep Content:-</h1>
-          <p>Personal loans, a popular financial instrument available from banks and other lending institutions, offer
-            individuals a convenient avenue to access funds without the requirement of collateral. This flexibility in
-            borrowing empowers individuals to address a myriad of financial needs, ranging from consolidating debt to
-            funding major life events like weddings or medical expenses.
-
-            One of the distinguishing features of personal loans is their unsecured nature, which means borrowers are
-            not obligated to put up assets as collateral. Instead, lenders assess the creditworthiness of applicants
-            based on various factors such as credit history, income stability, employment status, and debt-to-income
-            ratio. This assessment determines the terms of the loan, including the interest rate and loan amount.
-
-            Personal loan interest rates may be set or fluctuating. Fixed-rate loans provide borrowers with a consistent
-            interest rate throughout the loan term, ensuring predictability in monthly payments. Conversely,
-            variable-rate loans are subject to fluctuations based on market conditions, potentially affecting the
-            affordability of monthly payments over time.
-
-            Repayment terms for personal loans typically range from one to seven years, although longer terms may be
-            available from certain lenders. It's important for borrowers to carefully consider the trade-offs between
-            shorter and longer loan terms, as they impact both monthly payments and total interest costs.
-
-            Taking out a personal loan can have implications for an individual's credit score. Timely repayment
-            demonstrates responsible financial behavior and can positively influence creditworthiness. Conversely,
-            missed payments or defaulting on the loan can significantly damage credit scores, affecting future borrowing
-            opportunities.
-
-            Before committing to a personal loan, borrowers should engage in thorough comparison shopping to find the
-            most favorable terms and conditions. This entails comparing interest rates, fees, repayment terms, and other
-            relevant factors across multiple lenders. Through this action, borrowers can make knowledgeable choices that
-            correspond with their financial objectives and situations.
-
-            While personal loans offer flexibility and convenience, borrowers should exercise caution to avoid potential
-            risks such as overborrowing or defaulting on payments. Responsible borrowing involves assessing one's
-            financial needs realistically and devising a repayment plan to ensure timely loan repayment without undue
-            financial strain.
-
-            In conclusion, personal loans serve as a versatile financial tool for individuals seeking to fulfill various
-            monetary requirements. By understanding the intricacies of personal loan terms and diligently managing
-            repayment obligations, borrowers can leverage these loans to achieve their financial objectives while
-            safeguarding their long-term financial well-being.</p>
-        </div>
-        <div class="text2">
-          <h1>Examples:-</h1>
-          <ul style="list-style: decimal;color: #000000;">
-            <li>Debt Consolidation: Personal loans serve as a strategic tool for consolidating multiple debts into a
-              single, more manageable obligation. By combining outstanding balances from credit cards, medical bills,
-              and other sources into a unified loan, borrowers simplify their repayment process. Additionally, personal
-              loans often offer lower interest rates compared to credit cards, potentially reducing the overall cost of
-              debt and accelerating the path to financial freedom.</li>
-            <li>Home Improvements: For homeowners looking to enhance their property, personal loans provide a versatile
-              financing solution for various renovation projects. Whether it's remodeling a kitchen, upgrading a
-              bathroom, or adding extra space, these loans offer access to the funds needed to transform living spaces.
-              By leveraging a personal loan, homeowners can increase the value of their property and create a more
-              comfortable and aesthetically pleasing environment for themselves and their families.</li>
-            <li>Emergency Expenses: Unexpected financial emergencies, such as car repairs or medical bills, can arise
-              without warning, causing stress and disruption. Personal loans offer a lifeline during such times,
-              providing immediate access to funds to cover urgent expenses. Whether it's repairing a vehicle to maintain
-              transportation or addressing medical bills to ensure well-being, a personal loan offers a timely solution
-              to navigate unforeseen financial challenges and restore stability.</li>
-            <li>Education Expenses: Pursuing higher education often comes with significant financial costs, including
-              tuition fees, textbooks, and living expenses. Personal loans play a crucial role in bridging the financial
-              gap for students seeking to invest in their education. By supplementing scholarships, grants, and other
-              forms of financial aid, personal loans enable students to pursue their academic aspirations without facing
-              financial barriers. This access to funding empowers individuals to invest in their future and unlock new
-              opportunities for personal and professional growth.
-            </li>
-            <li>Wedding Expenses: Planning a wedding involves numerous expenses, from venue rentals and catering to
-              attire and decorations. Personal loans offer couples a practical means of financing their dream wedding
-              while maintaining financial independence. By spreading the cost of wedding expenses over a manageable
-              repayment period, couples can create a memorable celebration that reflects their unique style and
-              preferences. Personal loans provide the flexibility and financial support needed to orchestrate a
-              beautiful wedding without compromising on quality or sacrificing long-term financial goals.</li>
-          </ul>
-        </div>
-        <div class="text2">
-          <h1>Advantages:-</h1>
-          <ul style="list-style: decimal;color: #000000;">
-            <li>Versatile Usage: Personal loans offer flexibility in spending, catering to a wide array of financial
-              needs without constraints.</li>
-            <li>Asset-Free Borrowing: Unlike secured loans, personal loans don't require collateral, ensuring borrowers'
-              assets remain untouched.</li>
-            <li>Expedited Funding: Quick disbursal of funds, often within days, provides timely relief for urgent
-              financial matters.</li>
-            <li>Payment Predictability: Fixed interest rates maintain stable monthly payments throughout the loan term,
-              aiding in financial planning.</li>
-            <li>Debt Streamlining: Consolidating multiple debts into a single personal loan streamlines repayments,
-              potentially lowering overall interest costs.</li>
-            <li>Cost Efficiency: Typically lower interest rates on personal loans make them a cost-effective option
-              compared to higher-interest alternatives.</li>
-            <li>Credit Enhancement: Consistent loan repayment enhances credit scores, facilitating future borrowing and
-              financial opportunities.</li>
-            <li>Financial Management: Structured monthly payments enable better budgeting and financial management for
-              borrowers.</li>
-            <li>Early Repayment: Absence of prepayment penalties allows borrowers to save on interest by paying off
-              loans ahead of schedule.</li>
-            <li>Favorable Terms: Lenders offer competitive terms, including flexible repayment plans and loan amounts
-              tailored to individual needs.</li>
-            <li>Usage Freedom: Borrowers enjoy unrestricted use of loan funds, empowering them to address diverse
-              financial obligations.</li>
-            <li>Home Equity Preservation: Unlike home equity loans, personal loans spare homeowners from tapping into
-              property equity for borrowing.</li>
-            <li>Reduced Risk: Unsecured nature of personal loans alleviates concerns about asset seizure, lowering
-              borrower stress levels.</li>
-            <li>Bill Consolidation: Simplified bill management is achieved through consolidating multiple payments into
-              a single loan installment.</li>
-            <li>Cash Flow Optimization: Access to immediate funds through personal loans can optimize cash flow during
-              cash-strapped periods.</li>
-            <li>No Upfront Payments: Absence of down payment requirements makes personal loans more accessible and
-              appealing to borrowers. </li>
-            <li>Privacy Assurance: Personal loans afford privacy as lenders typically don't scrutinize specific
-              expenditure details.</li>
-            <li>Diverse Options: Borrowers have a plethora of lender and loan product choices, facilitating tailored
-              financial solutions.</li>
-            <li>Stability Provision: Personal loans offer stability by cushioning against unforeseen expenses or
-              financial emergencies.</li>
-            <li>Trust Building: Responsible loan repayment fosters trust with lenders, paving the way for future
-              borrowing opportunities and favorable terms.</li>
-          </ul>
-        </div>
-        <div class="text2">
-          <h1>Case Study:-</h1>
-          <p>
-            Introduction: <BR></BR>
-
-            In the realm of personal finance, individuals often encounter unexpected expenses or aspire to pursue
-            ventures that require additional funding. Personal loans serve as a viable solution, providing borrowers
-            with the necessary funds to address immediate needs or achieve long-term objectives. This case study
-            presents a fictional scenario that explores the strategic utilization of personal loans in overcoming
-            financial challenges. <BR></BR>
-
-            Scenario: <BR></BR>
-
-            Meet John, a 35-year-old software engineer residing in a suburban neighborhood. John recently encountered a
-            financial setback when his home's HVAC system malfunctioned, necessitating a costly repair estimated at
-            $5,000. With limited savings earmarked for other financial goals, John faces the dilemma of whether to
-            utilize a personal loan to cover the repair expenses. <BR></BR>
-
-            Factors Influencing Borrowing Decision: <BR></BR>
-
-            Financial Preparedness: John's level of financial preparedness plays a pivotal role in his decision-making
-            process. Assessing the adequacy of his emergency fund and other liquid assets provides valuable insights
-            into his ability to handle unexpected expenses without resorting to borrowing. <BR></BR>
-
-            Credit History: John's credit history and credit score serve as crucial determinants of his borrowing
-            capacity and the terms offered by lenders. A strong credit profile may afford him access to favorable
-            interest rates and repayment terms, whereas a less favorable credit history could limit his borrowing
-            options. <BR></BR>
-
-            Cost-Benefit Analysis: John conducts a comprehensive cost-benefit analysis to evaluate the implications of
-            borrowing. He weighs the interest expenses associated with the personal loan against the potential costs of
-            delaying the HVAC repair or alternative financing options, such as using a credit card or tapping into
-            retirement savings. <BR></BR>
-
-            Loan Terms and Conditions: John meticulously reviews the terms and conditions offered by various lenders,
-            considering factors such as interest rates, loan duration, origination fees, and prepayment penalties.
-            Selecting a lender that offers favorable terms aligns with his objective of minimizing the overall cost of
-            borrowing. <BR></BR>
-
-            Repayment Strategy: John formulates a repayment strategy that aligns with his financial objectives and cash
-            flow. He considers factors such as the monthly installment amount, the impact on his budget, and the
-            feasibility of accelerating repayment to minimize interest expenses and expedite debt payoff. <BR></BR>
-
-            Financial Management Implications: <BR></BR>
-
-            Budget Adjustment: Integrating the loan repayment obligations into his budget necessitates a reassessment of
-            John's spending priorities and financial goals. By reallocating resources and making strategic adjustments,
-            he ensures that loan repayments are manageable without compromising essential expenses or long-term
-            objectives. <BR></BR>
-
-            Emergency Fund Reinforcement: Recognizing the importance of financial resilience, John takes proactive steps
-            to reinforce his emergency fund following the HVAC repair. Building a robust financial cushion safeguards
-            against future contingencies and reduces reliance on borrowing for unforeseen expenses. <BR></BR>
-
-            Debt Management Strategies: John adopts prudent debt management strategies to optimize his financial
-            position. This includes prioritizing high-interest debt repayment, exploring opportunities for debt
-            consolidation or refinancing, and maintaining a disciplined approach to managing credit utilization. <BR></BR>
-
-            Future Financial Planning: The experience of utilizing a personal loan prompts John to revisit his long-term
-            financial planning objectives. He seeks to enhance his savings rate, diversify his investment portfolio, and
-            establish contingency plans to mitigate the impact of future financial challenges. <BR></BR>
-
-            Conclusion: <BR></BR>
-
-            Personal loans represent a valuable financial resource for individuals navigating unexpected expenses or
-            pursuing strategic financial objectives. However, the effective utilization of personal loans requires
-            careful consideration of various factors, including financial preparedness, creditworthiness, loan terms,
-            and repayment strategies. By adopting a systematic approach to borrowing and integrating prudent financial
-            management practices, individuals like John can leverage personal loans as a tool for overcoming financial
-            challenges and achieving their long-term financial goals <BR></BR>
-          </p>
-        </div>
-        <div class="text2">
-          <h1>Important Points:-</h1>
-          <p>Financial Swiss Army Knife: Personal loans are versatile financial tools that can be used for various purposes, from consolidating debt to financing home renovations, offering borrowers flexibility without the need for collateral. <BR></BR>
-
-            Rate Stability: Unlike credit cards, personal loans often feature fixed interest rates, providing borrowers with peace of mind and predictability in their monthly payments throughout the loan term. <BR></BR>
-            
-            Collateral-Free Confidence: With personal loans being typically unsecured, borrowers can access funds without pledging assets, although this may come with slightly higher interest rates due to the lender's risk. <BR></BR>
-            
-            Credit Boosting Potential: Timely repayment of personal loans can boost credit scores, showcasing responsible financial behavior and paving the way for better borrowing opportunities in the future. <BR></BR>
-            
-            Swift Solutions: Many lenders offer streamlined application processes for personal loans, enabling borrowers to apply online or via mobile apps and receive decisions swiftly, often within minutes, making borrowing convenient. <BR></BR>
-            
-            Debt Consolidation Dynamo: Personal loans can be a lifesaver for those looking to consolidate high-interest debts, such as credit card balances, into a single, manageable payment with potentially lower interest rates, easing the burden of debt repayment. <BR></BR>
-            
-            Prepayment Perks: Some personal loans allow borrowers to pay off their loans early without penalties, empowering them to save on interest and expedite their journey to becoming debt-free. <BR></BR>
-            
-            Tailored Terms: Personal loans come with various repayment terms, allowing borrowers to choose a schedule that suits their financial situation and goals, whether it's paying off the loan quickly or spreading payments over time. <BR></BR>
-            
-            Rate Roulette: The interest rate on a personal loan depends on factors like creditworthiness, loan amount, and repayment term, emphasizing the importance of shopping around for the best rates to save money in the long run. <BR></BR>
-            
-            Borrower Beware: While personal loans offer financial flexibility, it's essential for borrowers to borrow responsibly, only taking what they need, planning for repayments, and maintaining a healthy balance between debt and income to avoid financial strain.</p>
-        </div>
-        <div class="text2">
-          <h1>Pictures :-</h1>
-          <p></p>
-        </div>
-        <div class="text2">
-          <h1>Videos:-</h1>
-          <p></p>
-        </div>
+  <section id="types" class="container">
+      <h2>How to Apply for a Personal Loan</h2>
+      <p>Applying for a personal loan with us is simple:</p>
+      <div class="card-types">
+          <div class="card-type">
+              <h3>Choose Your Loan</h3>
+              <p>Browse our range of personal loan options and select the one that best meets your needs.</p>
+          </div>
+          <div class="card-type">
+              <h3>Check Eligibility</h3>
+              <p>Ensure you meet the eligibility criteria, including income and credit score requirements, for your chosen loan.</p>
+          </div>
+          <div class="card-type">
+              <h3>Submit Application</h3>
+              <p>Fill out the online application form with your personal and financial details. Provide necessary documents such as ID proof, address proof, and income proof.</p>
+          </div>
+          <div class="card-type">
+              <h3>Verification Process</h3>
+              <p>Our team will verify your application and documents, which typically takes 3-5 working days.</p>
+          </div>
+          <div class="card-type">
+              <h3>Approval and Delivery</h3>
+              <p>Once approved, the loan amount will be disbursed to your account within 7-10 working days. You can start using the funds immediately for your financial needs.</p>
+          </div>
       </div>
-    </div>
-  </div>
-  <section class="footer">
+  </section>
+
+  <section id="final" class="container">
+      <h2>Get the Best Personal Loan for Your Needs</h2>
+      <p>Our network of bank partnerships ensures you have access to the best personal loan options available. Whether you need funds for home improvements, medical expenses, or debt consolidation, we have the right loan for you.</p>
+  </section>
+  <div class="footer">
     <div class="footer-content">
-      <img src="../images/XpertRupees_Logo_White.svg" alt="">
+      <img src="../images/logolayloan.png" alt="" style="width: 120px;">
       <ul>
         <li class=" footer-link"><a href="/">Home</a></li>
         <li class=" footer-link"><a href="/services">Services</a></li>
@@ -386,7 +380,7 @@
         </style>
       </div>
     </div>
-  </section>
+  </div>
   <style>
     .footer2 {
       display: flex;
@@ -404,10 +398,10 @@
       text-decoration: none;
     }
   </style>
-  <section class="footer2">
-    <small>&copy; Copyright 2024, Ocean One Pvt. Ltd</small>
+  <div class="footer2">
+    <small>&copy; Copyright 2024, Layloan</small>
     <small> Developed By <a href="https://www.techtasa.com/">Techtasa</a></small>
-  </section>
+  </div>
 </body>
 <script src="../js/script.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
