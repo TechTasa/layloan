@@ -146,6 +146,36 @@ async function getReferralCounts() {
     res.render("homeloan",{loggedin})
     // res.sendFile(path.join(__dirname, 'public','html', 'services.html'));
   })
+  app.get('/services/auto', (req, res) => {
+    const loggedin=req.session.user;
+    res.render("auto",{loggedin})
+    
+  })
+  app.get('/services/auto', (req, res) => {
+    const loggedin=req.session.user;
+    res.render("auto",{loggedin})
+    
+  })
+  app.get('/services/education', (req, res) => {
+    const loggedin=req.session.user;
+    res.render("education",{loggedin})
+    
+  })
+  app.get('/services/loanagainst', (req, res) => {
+    const loggedin=req.session.user;
+    res.render("loanagainst",{loggedin})
+    
+  })
+  app.get('/services/product', (req, res) => {
+    const loggedin=req.session.user;
+    res.render("product",{loggedin})
+    
+  })
+  app.get('/services/serviceloan', (req, res) => {
+    const loggedin=req.session.user;
+    res.render("serviceloan",{loggedin})
+    
+  })
   app.get('/services/termlifeinsurance', (req, res) => {
     const loggedin=req.session.user;
     res.render("termlifeinsurance",{loggedin})
@@ -164,6 +194,21 @@ async function getReferralCounts() {
   app.get('/services/directmutualfund', (req, res) => {
     const loggedin=req.session.user;
     res.render("directmutualfund",{loggedin})
+
+  })
+  app.get('/services/AutomobileInsurance', (req, res) => {
+    const loggedin=req.session.user;
+    res.render("AutomobileInsurance",{loggedin})
+
+  })
+  app.get('/services/productinsurance', (req, res) => {
+    const loggedin=req.session.user;
+    res.render("productinsurance",{loggedin})
+
+  })
+  app.get('/services/PropertyInsurance', (req, res) => {
+    const loggedin=req.session.user;
+    res.render("PropertyInsurance",{loggedin})
 
   })
   app.get('/contact', (req, res) => {

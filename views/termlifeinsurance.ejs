@@ -5,22 +5,238 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Insurance</title>
+   <title>Finance Tool</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/services.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 </head>
+<style>
+  /* Combined CSS */
+  body {
+          font-family: 'Arial', sans-serif;
+          margin: 0;
+          padding: 0;
+          background: #f0f4f8;
+          color: black;
+      }
 
+      header {
+        background: linear-gradient(to left, #0561CA, #00278C);
+          color: #fff;
+          padding: 1.5em 2em;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+      }
+
+      header h1 {
+          margin: 0;
+          font-size: 2.4em;
+          letter-spacing: 1px;
+      }
+
+      .container {
+          padding: 2em;
+      }
+
+      section {
+          margin-bottom: 2em;
+          background: #fff;
+          border-radius: 12px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          padding: 2em;
+      }
+
+      h2 {
+          color: #00278C;
+          font-size: 2em;
+          margin-bottom: 1em;
+          position: relative;
+      }
+
+      h2::after {
+          content: '';
+          display: block;
+          width: 50px;
+          height: 5px;
+          background: #00278C;
+          position: absolute;
+          bottom: -10px;
+          left: 0;
+      }
+
+      .card-types {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1em;
+          justify-content: center;
+      }
+
+      .card-type {
+          flex: 1 1 calc(33.333% - 1em); /* For three cards in the first row */
+          background: #f9f9f9;
+          border-radius: 8px;
+          padding: 1.5em;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          transition: box-shadow 0.3s;
+          box-sizing: border-box;
+      }
+
+      .card-type:nth-child(4), .card-type:nth-child(5) {
+          flex: 1 1 calc(50% - 1em); /* For two centered cards in the second row */
+      }
+
+      .card-type:hover {
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-type h3 {
+          margin-top: 0;
+          color: #00278C;
+      }
+
+      .faq-section {
+          display: flex;
+          flex-direction: column;
+          gap: 1em;
+      }
+
+      .faq-item {
+          background: #f9f9f9;
+          border-radius: 8px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          overflow: hidden;
+          transition: box-shadow 0.3s;
+      }
+
+      .faq-item:hover {
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .faq-question {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 1em;
+          cursor: pointer;
+          position: relative;
+          background: #fff;
+          font-weight: bold;
+      }
+
+      .faq-question::after {
+          content: '\002B'; /* Unicode for plus sign */
+          font-size: 1.5em;
+          color: #00278C;
+          margin-left: 1em;
+          transition: transform 0.3s;
+      }
+
+      .faq-question.active::after {
+          content: '\2212'; /* Unicode for minus sign */
+          color: #00278C;
+      }
+
+      .faq-answer {
+          display: none;
+          padding: 1em;
+          background: #f4f4f4;
+      }
+
+      .faq-answer.show {
+          display: block;
+      }
+
+      /* Media Queries for Responsiveness */
+      @media (max-width: 1200px) {
+          .card-type {
+              flex: 1 1 calc(50% - 1em); /* Two cards per row */
+          }
+
+          .card-type:nth-child(4), .card-type:nth-child(5) {
+              flex: 1 1 calc(100% - 1em); /* Full-width for the last two cards */
+          }
+      }
+
+      @media (max-width: 768px) {
+          header h1 {
+              font-size: 1.8em;
+          }
+
+          section {
+              padding: 1.5em;
+          }
+
+          .container {
+              padding: 1.5em;
+          }
+
+          .card-type {
+              flex: 1 1 calc(100% - 1em); /* Full-width cards */
+          }
+
+          h2 {
+              font-size: 1.6em;
+          }
+
+      }
+
+      @media (max-width: 480px) {
+          header h1 {
+              font-size: 1.5em;
+          }
+
+          .faq-question {
+              font-size: 1.2em;
+          }
+
+          .faq-answer {
+              font-size: 0.9em;
+          }
+
+          h2 {
+              font-size: 1.4em;
+          }
+      }
+      #selection ul{
+         line-height: 2rem;
+      }
+      #benefits ul{
+         line-height: 2rem;
+      }
+      #apply ol{
+         line-height: 2rem;
+      }
+      #apply p {
+         color: black;
+      }
+      .card-type p{
+        color: black;
+      }
+      .services1 h1{
+        text-align: center;
+        font-weight: 800;
+        margin-bottom: 2rem;
+      }
+      .icons a {
+      margin: 8px;
+      font-size: 20px;
+      color: white;
+}
+</style>
 <body>
   <nav class="navbar">
-    <div id="menu"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#1b1dc7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <div id="menu"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2" width="44"
+        height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#1b1dc7" fill="none" stroke-linecap="round"
+        stroke-linejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <line x1="4" y1="6" x2="20" y2="6" />
         <line x1="4" y1="12" x2="20" y2="12" />
         <line x1="4" y1="18" x2="20" y2="18" />
       </svg></div>
-    <a href="/" class="logo"><img src="../images/XpertRupees_Logo.svg" alt=""></a>
+    <a href="/" class="logo"><img src="../images/logolayloan.png" alt="" style="width: 120px;"></a>
     <ul class="links">
       <li class=" link "><a href="/">Home</a></li>
       <li class=" link active"><a href="/services">Services</a></li>
@@ -29,76 +245,75 @@
       <li class=" link"><a href="/contact">Contact</a></li>
     </ul>
     <% if (loggedin) { %>
-    <button class="cta" onClick='location="/dashboard"'>Dashboard</button>
-    <% } else { %>
-    <button class="cta" onClick='location="/auth/login"'>Sign In</button>
-    <% } %>
+      <button class="cta" onClick='location="/dashboard"'>Dashboard</button>
+      <% } else { %>
+        <button class="cta" onClick='location="/auth/login"'>Sign In</button>
+        <% } %>
   </nav>
-  <div class="services">
-    <div class="container p-5" style="background:linear-gradient(to left, #0561CA,#00278C);">
-      <h4>Term Life Insurance</h4>
-    </div>
-    <style>
-      /*  */
-      .cards11 {
-            max-width: 1120px;
-            margin: 0 auto;
-            /* display: grid; */
-            gap: 1rem;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-        .card12 {
-          /* background-color: dodgerblue; */
-          color: white;
-          padding: 1rem;
-            /* height: 4rem; */
-          }
-          .text2 h1{
-            color: black;
-          }
-          .text2 p{
-            color: black;
-          }
-          </style>
-    <div class="cards11">
-      <div class="card12">
-    <div class="text2">
-      <h1>Short Content:- </h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, error aspernatur! Reprehenderit, vitae officiis aspernatur quos quod aliquid veritatis iste deserunt tempora ut consequatur inventore quibusdam, consequuntur nam sequi ab! Dolore officia voluptatibus ex vitae voluptate. Fuga, excepturi nesciunt quo vitae quidem necessitatibus quasi consectetur repellendus corrupti asperiores modi labore maiores vero numquam dignissimos eos, incidunt tempora id. Quos, voluptates quis fugiat nam provident saepe eius ipsa perferendis illum adipisci odio earum cupiditate maiores, magnam pariatur aliquid facilis suscipit fuga consequatur tenetur ipsam. Eum nulla enim saepe assumenda ducimus officia ea est totam omnis maxime natus similique et, dolorem tempora voluptatum. Esse quibusdam quae possimus quo labore facilis exercitationem eum tempora autem, reprehenderit hic impedit, consequatur nostrum. Odio hic rem omnis quisquam molestias obcaecati laudantium et sunt dolores vero similique, adipisci odit voluptatibus quia officiis eum incidunt! Iure molestias ipsam aut placeat quisquam quas qui illum, officiis, deleniti optio tempore!</p>
-    </div>
-    <div class="text2">
-      <h1>Deep Content:-</h1>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat autem illum sunt numquam debitis quod velit recusandae perspiciatis, error, ullam quasi! Vitae, id vero? Dignissimos consequuntur aliquam, repellat id natus iste blanditiis assumenda exercitationem, velit repellendus, reiciendis rem autem at odit corporis tempora adipisci deserunt! Veritatis ut eos, praesentium vel itaque, perferendis quod voluptatibus adipisci libero nisi, ex dignissimos velit iusto sunt hic sint quibusdam et accusantium ea possimus impedit provident deleniti quisquam? Explicabo corrupti quod corporis animi doloremque soluta, placeat, dolor omnis sit quia qui? Quia, veritatis! Obcaecati, laborum earum ea omnis consequatur quaerat ut assumenda voluptatum deleniti error explicabo repellat eius quisquam incidunt ullam nostrum iste ipsa. Beatae repudiandae, aut vitae iure error ullam dolores cumque vero, obcaecati ipsum aliquam quo illum tempora porro dicta quod atque tenetur. Culpa nihil vel repellat inventore nostrum optio consequatur, corrupti natus, non esse tempora accusantium consectetur harum aliquid deserunt consequuntur iure. Possimus error atque neque! Excepturi dignissimos perspiciatis quam eligendi, dolore illum aliquam, amet numquam facilis consectetur eius modi eos! Ipsa inventore iste aspernatur voluptate sunt ut sapiente a omnis tempore, qui officiis molestias recusandae quos expedita iure porro voluptatem assumenda, eaque laborum debitis? Ea ipsam culpa vel iste suscipit quam rem, aliquam inventore illo aliquid placeat, repellendus, accusamus earum! Facere esse sit, eum commodi odit, in reiciendis nesciunt quasi officia quis odio aut at facilis deserunt excepturi, tenetur ducimus aperiam reprehenderit neque. Totam, eum labore. Dignissimos accusantium repellat harum nisi doloribus odio nemo molestiae aspernatur voluptates praesentium soluta modi, ut omnis! Praesentium dolore esse labore beatae, rerum in assumenda provident nam fugit earum aliquid aspernatur harum minus ex, dolorum veritatis! Minus, at dolore eum sint ullam quae. Ad repellendus rerum tempora vitae provident inventore ab similique? Corrupti aliquid quos odio. Qui, deserunt in! Eveniet voluptas sit necessitatibus iure asperiores? Quod exercitationem impedit itaque cupiditate quas ipsum enim, eos minima sapiente nesciunt aliquid facilis quasi ipsam maxime perspiciatis quis dolore, ducimus earum, architecto veniam vel incidunt consequatur blanditiis. Dolore facere libero nemo! Adipisci laboriosam voluptatum, libero, sequi animi distinctio illum assumenda eveniet ullam id veritatis eum quam? Repellat temporibus dicta minus voluptates eveniet eligendi impedit esse nostrum, inventore dolor rem veniam enim quae! Ipsa ipsam rerum facilis magni error inventore, et cumque iste voluptate dolorum quas sapiente quaerat molestiae sit at mollitia blanditiis nemo natus necessitatibus, temporibus voluptas. Blanditiis eligendi expedita officia consequuntur sint obcaecati. Ipsam illum ratione voluptatibus distinctio consequatur tempora dolores, aliquid consectetur praesentium porro delectus error ab amet officiis numquam deserunt reiciendis similique. Ex debitis doloremque repellendus ad modi totam maxime id culpa, dolores est, quaerat explicabo necessitatibus eveniet eaque aperiam doloribus rem velit facilis aliquam. Architecto error, repudiandae quae laborum nam voluptates quia, explicabo dolorem magni cumque facilis ab fuga aspernatur? Veniam officia doloribus beatae rem ipsam eligendi deleniti aliquam ullam eius modi voluptatibus quisquam accusantium ratione cumque odio unde, provident reiciendis! Tenetur ipsum ea dolore, fugit molestiae deleniti quisquam numquam enim ullam nam eum reprehenderit soluta nobis ipsa debitis blanditiis error ad atque, esse maxime expedita. Velit suscipit magnam nihil at, sint commodi rem obcaecati corrupti tempore temporibus accusamus nostrum ipsam deleniti debitis adipisci repellendus fugit ipsum amet. Tenetur, explicabo. Rerum ea hic distinctio facere aut harum tempora nemo dignissimos voluptates nulla corrupti est exercitationem, quidem quisquam natus rem beatae labore consequatur dolor culpa fugit voluptatem. Eius ut est placeat ad totam, esse porro nisi alias! Laudantium sint necessitatibus labore pariatur voluptates architecto harum id accusamus ipsa mollitia libero eveniet autem vel quo ut ipsam a, quisquam minus reprehenderit dolore cum cumque fuga neque! Nam autem dolore cum doloribus illum quos placeat quo atque adipisci? Non blanditiis architecto praesentium, quidem illum maiores adipisci, earum suscipit neque porro sunt? Qui non doloremque magnam, veritatis facilis adipisci perferendis sequi illo tenetur sit repellat, architecto amet neque nam tempora numquam alias natus laboriosam, atque blanditiis rem? Quas, ipsa ad in atque temporibus impedit eum ipsum reprehenderit consectetur doloribus iure, excepturi cumque vitae voluptas praesentium incidunt quis ut enim maxime veritatis accusamus ab aperiam eaque! Nobis sed accusamus quibusdam fugit hic ullam minima earum, quo aspernatur tempora dolore quam, assumenda quos delectus vero? Obcaecati optio maiores ad odio dolore quaerat consectetur, deleniti, quasi minima et modi fuga. Laborum iure, commodi voluptatum corporis nostrum eum eius repellat quas vel illum ducimus nesciunt magni laboriosam in ab minus! Praesentium, iste officiis! Eius sunt provident, excepturi itaque, incidunt perferendis maxime sequi, nostrum sed commodi delectus ullam exercitationem tenetur corrupti laboriosam quia! Ratione aspernatur et reprehenderit quae quaerat voluptates nobis quibusdam? Dolores sed nemo, earum assumenda veritatis odit officiis molestias eos tenetur ut eius modi neque commodi esse? Corrupti recusandae debitis, accusamus incidunt, ducimus qui quam error pariatur velit quidem esse neque necessitatibus eligendi sequi. Consequatur impedit, fuga ab voluptas tempore vel eligendi! Libero quas illum modi reprehenderit magni, ipsum illo a nemo vel.</p>
-    </div>
-    <div class="text2">
-      <h1>Examples:-</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quasi. Repellendus delectus iusto nam error corporis reprehenderit. Libero, ad aperiam harum quos similique animi voluptas consequuntur officiis exercitationem repellendus saepe, recusandae, nostrum explicabo cumque fugit totam inventore accusantium culpa natus quam id. Ducimus, quod placeat? Facilis, exercitationem sapiente. Eos molestias vel dolore minima sint optio tenetur, voluptatibus odit nihil ratione laboriosam, voluptates nam. Voluptatibus, repudiandae? Molestiae totam velit natus laboriosam sapiente inventore quaerat recusandae! Modi placeat dolorem rerum ipsum odio!</p>
-    </div>
-    <div class="text2">
-      <h1>Advantages:-</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima cupiditate aliquam error? Officia ducimus quos pariatur voluptate quibusdam aperiam numquam expedita fuga possimus facere nesciunt, explicabo dicta est, neque a dolorum maiores, magnam quo. Repudiandae impedit delectus ducimus sapiente reiciendis perspiciatis maiores autem, tempore corporis? Architecto repellat dolores iste voluptatibus ut fuga reiciendis reprehenderit ratione laboriosam pariatur! Eligendi alias, cumque unde nisi quae recusandae qui suscipit quod eveniet ad vitae enim totam, soluta facere eos ex veniam, dolorem sequi optio!</p>
-    </div>
-    <div class="text2">
-      <h1>Case Study:-</h1>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores aperiam dignissimos, totam nihil officia veniam quibusdam, nam nemo pariatur exercitationem cum adipisci dolorum eos nisi natus consequuntur similique! Eum, minima optio aut nemo minus voluptates obcaecati aperiam voluptatibus quisquam rerum nulla error dignissimos velit, incidunt dolores iusto, quia eaque vero consectetur ratione. Explicabo soluta sit, voluptates facilis quae inventore autem! Quasi laborum debitis alias aperiam placeat sit totam harum, et odit voluptates quos nesciunt assumenda, incidunt, animi dolorum. Corporis porro molestias, eveniet labore veritatis voluptatum libero quae beatae repellendus. Expedita quas iste assumenda. Ex labore quas voluptatibus temporibus eius, commodi aut vel eaque eum iusto sint tempora minima esse quos iure quisquam deleniti odit, delectus, corrupti quasi nihil eveniet optio sed! Nisi odit id non, est at culpa fuga molestiae atque voluptas facilis dolores repellendus accusantium maxime temporibus fugiat porro assumenda natus dolor iure, laborum recusandae magni. Error magni aut, incidunt voluptatem debitis officiis facere veniam similique architecto aliquid, natus necessitatibus, doloribus voluptatum. Necessitatibus suscipit ipsa sint corporis voluptate molestiae dolores! Esse repudiandae voluptas expedita quidem nihil libero error culpa voluptatum earum id obcaecati, temporibus voluptatem enim accusantium laboriosam! Quis placeat quas ad quasi rerum quod nobis repellat expedita reprehenderit exercitationem mollitia id recusandae voluptatem aspernatur, harum doloremque, ratione odit officiis saepe! Doloremque architecto dolores voluptate beatae quam? Provident impedit dolor totam doloremque atque ipsum corrupti ea laboriosam sit harum, laudantium veritatis, cupiditate error commodi iure iste recusandae. Quam laboriosam natus totam explicabo nihil aperiam expedita vel obcaecati praesentium reprehenderit soluta a aliquam et quia magni itaque error officiis ratione incidunt beatae voluptate, voluptatum sit? Neque architecto repellendus dicta sequi explicabo, itaque aspernatur quidem dolores recusandae molestias maiores accusamus illo sit dignissimos assumenda aliquid nemo ad veritatis error maxime distinctio aperiam. Natus dolorem eum ratione odit sunt est, atque similique quae sit, quas magni quos. Ipsam similique soluta iure aut, dolor, vitae incidunt dolore consequatur officia distinctio voluptatem, commodi aliquid impedit voluptates eligendi nostrum reprehenderit fugiat. Consequuntur, voluptates delectus maxime explicabo, libero unde accusantium consectetur nesciunt ipsam expedita atque temporibus numquam placeat. Nostrum delectus nihil, error rerum aspernatur quaerat eum esse omnis non velit similique earum ab tenetur ut accusantium eos aliquam voluptatibus ad, rem, odio totam soluta at aperiam cumque! Dicta illo quidem nisi itaque recusandae distinctio cupiditate est fuga adipisci quis rem similique id quasi minus modi voluptas repellat cum, nobis qui dolores alias culpa magni suscipit nulla! Cumque pariatur rem labore natus ratione voluptatibus facilis? Veritatis, nisi! Perferendis accusamus vitae officia quibusdam, nesciunt libero perspiciatis minima laudantium possimus ad dolore modi nisi. Mollitia veniam odio aspernatur minima sed. Velit voluptatibus architecto voluptates, mollitia fugiat exercitationem? Aliquid praesentium amet assumenda itaque repellendus culpa repudiandae, maiores error consequuntur ea tempora. Eligendi quis, aperiam, quisquam error minus beatae aut atque corrupti, voluptate quae reprehenderit cum officiis tempora ab esse velit qui. Quis, vero harum dolorem, commodi ex debitis eos quaerat voluptates, totam aspernatur nulla culpa et unde. Maiores rem itaque voluptatem deserunt temporibus tempore necessitatibus nesciunt. Nisi, in quas consectetur laborum adipisci molestiae animi maxime illo accusantium deleniti natus fugiat incidunt cupiditate consequatur fuga tempore aliquid sequi eligendi aspernatur nemo sed quia laudantium officiis? Harum sed ratione consectetur cumque doloremque eligendi aut. Inventore cupiditate recusandae vero, laudantium nam in ab consequatur alias necessitatibus quae incidunt magnam, perspiciatis voluptates numquam eius tempore explicabo quas velit similique expedita excepturi. Sequi reprehenderit illum in iste at, eaque vel nemo ipsum explicabo et repudiandae ipsa reiciendis quaerat animi debitis vitae rem nihil. Dolorem odio nihil reiciendis unde id, maxime asperiores eius facilis eum amet quos ipsam, tenetur ut laboriosam rerum. Est laudantium architecto exercitationem debitis, porro minus? Nihil, ipsum fugiat amet deleniti atque nemo voluptatibus laboriosam dicta, unde obcaecati doloribus magnam? Saepe dolorum quos voluptas illo! Inventore placeat modi commodi nemo quasi fugiat laboriosam in, blanditiis dolore praesentium perferendis odit, tenetur eaque dolores quidem asperiores molestiae enim pariatur? Ipsam beatae velit porro laborum incidunt earum atque! Eos hic accusamus esse pariatur nostrum fugiat velit porro quod, sapiente, distinctio minus ad dolore tempore nihil doloribus voluptatem dolorem sequi recusandae corporis ipsa! Ipsa, neque impedit. Mollitia adipisci repellat sapiente. Explicabo veniam commodi facilis quo ullam doloribus voluptatem nesciunt, culpa velit? Sed praesentium ut aperiam sequi rem? Consectetur, nulla odit iure modi natus fugiat reiciendis illum voluptatibus nesciunt eum quis atque explicabo id veniam exercitationem animi! Non, eum quia consequatur nam placeat deserunt voluptas temporibus assumenda veniam voluptate doloremque dolorem corrupti ea accusamus atque ut ab reprehenderit. Cupiditate quae natus hic placeat magni. Doloribus, atque consequuntur commodi aliquid ipsum ea inventore culpa ipsam eligendi voluptatibus voluptas libero! Dolor corporis porro adipisci repellendus quia ea ut magni aliquam cum aperiam, culpa facilis nobis assumenda ratione quasi quis, hic pariatur, tempore corrupti? Veritatis eligendi saepe unde qui exercitationem laborum ex tenetur rem, culpa corporis deleniti id vel quos, officiis nisi nesciunt quasi odit asperiores delectus voluptate cum nulla cumque quaerat? Inventore excepturi ullam asperiores veritatis aut voluptatum laborum tenetur amet iure, nobis voluptates! Possimus corrupti quasi quo unde rerum? Quo, commodi voluptatem eos nulla quis iusto ipsam voluptates odit error illum consectetur, optio impedit repellat sapiente, quaerat culpa numquam minus. Doloremque quaerat consequuntur assumenda molestiae nam corporis animi, repudiandae expedita accusamus porro voluptas eaque aliquam deleniti amet optio suscipit iure, unde soluta doloribus nesciunt voluptatibus libero. Necessitatibus quasi suscipit reprehenderit doloremque, repellat, voluptatibus a, iure et vitae magni architecto ducimus officia optio consequatur. Voluptatibus ullam similique adipisci fugit nam soluta deserunt rerum laboriosam, consectetur unde a doloremque sunt amet repudiandae omnis aperiam. Ratione error eius, dolores commodi nisi nihil. Fugit eum facilis voluptates optio inventore aspernatur possimus deserunt ad vitae animi fuga quam, non nemo tempora id, temporibus maxime corrupti accusamus, aliquam asperiores rerum at error! Commodi tempore atque consequatur. Distinctio dolorem deleniti iusto reprehenderit culpa adipisci labore quas assumenda et facere ab aut, minus quasi ipsum temporibus necessitatibus laudantium quis ipsam ea suscipit aliquam autem! Asperiores, voluptas ullam facilis officia quis eum corrupti ratione fugiat doloremque totam, necessitatibus at! Incidunt quas ducimus maiores eius laudantium doloremque vitae? Natus!</p>
-    </div>
-    <div class="text2">
-      <h1>Important Points:-</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui voluptatibus minima voluptate. Nihil vitae laborum ea similique? Suscipit debitis totam dolore soluta nesciunt eligendi veniam! Quisquam dicta hic, quo magni minus beatae quas possimus sapiente vero dolore cupiditate voluptatibus labore porro, numquam deleniti. Excepturi repudiandae harum nostrum fuga voluptatem ratione!</p>
-    </div>
-    <div class="text2">
-      <h1>Pictures :-</h1>
-      <p></p>
-    </div> <div class="text2">
-      <h1>Videos:-</h1>
-      <p></p>
-    </div>
+  <h1 style="text-align: center; font-weight: 800; margin-bottom: 5rem; margin-top: 2rem;">Term Life Insurance</h1>
+
+  <section id="apply" class="container">
+    <h2>Term Life Insurance Services</h2>
+    <p>Term life insurance provides financial protection for a specific period. In the event of the policyholder’s death during the term, beneficiaries receive a death benefit. This type of insurance is designed to offer affordable coverage for temporary needs, such as raising children or paying off a mortgage, ensuring peace of mind for you and your loved ones.</p>
+  </section>
+  
+  <section id="selection" class="container">
+    <h2>Why Choose Our Term Life Insurance?</h2>
+    <ul>
+      <li><strong>Affordable Premiums:</strong> Enjoy cost-effective premiums that fit your budget, providing valuable coverage without breaking the bank.</li>
+      <li><strong>Flexible Term Lengths:</strong> Choose from a range of term lengths to match your specific needs, whether you need coverage for 10, 20, or 30 years.</li>
+      <li><strong>Simple Application Process:</strong> Our straightforward application process makes it easy to obtain term life insurance coverage quickly and efficiently.</li>
+      <li><strong>Fixed Premiums:</strong> Benefit from fixed premiums throughout the term, ensuring that your insurance costs remain stable and predictable.</li>
+      <li><strong>Quick Payouts:</strong> In the event of a claim, our efficient processing ensures that death benefits are paid out promptly to beneficiaries.</li>
+    </ul>
+  </section>
+  
+  <section id="benefits" class="container">
+    <h2>Types of Term Life Insurance We Offer</h2>
+    <ul>
+      <li><strong>Level Term Life Insurance:</strong> Provides a fixed death benefit and level premiums for the entire term of the policy, offering predictable coverage and costs.</li>
+      <li><strong>Decreasing Term Life Insurance:</strong> Features a decreasing death benefit over time, typically used to cover a mortgage or other debt that decreases over the term.</li>
+      <li><strong>Renewable Term Life Insurance:</strong> Allows you to renew your policy at the end of the term without additional medical underwriting, providing continued coverage as needed.</li>
+      <li><strong>Convertible Term Life Insurance:</strong> Offers the option to convert your term policy into a permanent life insurance policy at the end of the term, without additional medical exams.</li>
+    </ul>
+  </section>
+  
+  <section id="types" class="container">
+    <h2>How to Apply for Term Life Insurance</h2>
+    <p>Applying for term life insurance with us is straightforward:</p>
+    <div class="card-types">
+      <div class="card-type">
+        <h3>Select Your Policy</h3>
+        <p>Choose the type of term life insurance policy that best fits your needs, including the term length and coverage amount.</p>
+      </div>
+      <div class="card-type">
+        <h3>Check Eligibility</h3>
+        <p>Review the eligibility requirements to ensure you meet the criteria for the policy you are interested in.</p>
+      </div>
+      <div class="card-type">
+        <h3>Submit Application</h3>
+        <p>Complete the online application form with your details and any required documentation. Provide necessary health information and personal details.</p>
+      </div>
+      <div class="card-type">
+        <h3>Underwriting Process</h3>
+        <p>Our underwriting team will review your application and health information, typically taking 7-10 working days for processing.</p>
+      </div>
+      <div class="card-type">
+        <h3>Policy Issuance</h3>
+        <p>Once approved, your policy will be issued, and you will receive your policy documents. Coverage will begin as per the policy terms.</p>
       </div>
     </div>
-  </div>
-  <section class="footer">
+  </section>
+  
+  <section id="final" class="container">
+    <h2>Secure Your Future with Term Life Insurance</h2>
+    <p>Our term life insurance options are designed to provide affordable and effective coverage for a specified period. Whether you need protection for your family, mortgage, or other temporary needs, we offer the right policy to ensure your peace of mind and financial security.</p>
+  </section>
+  
+  
+  <div class="footer">
     <div class="footer-content">
-      <img src="../images/XpertRupees_Logo_White.svg" alt="">
+      <img src="../images/logolayloan.png" alt="" style="width: 120px;">
       <ul>
         <li class=" footer-link"><a href="/">Home</a></li>
         <li class=" footer-link"><a href="/services">Services</a></li>
@@ -107,17 +322,23 @@
         <li class=" footer-link"><a href="/contact">Contact</a></li>
       </ul>
       <div class="icons">
-        <a href="https://www.facebook.com/rupeexpert/?ref=pages_you_manage"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <a href="https://www.facebook.com/rupeexpert/?ref=pages_you_manage"><svg xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-brand-facebook" width="44" height="44" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
           </svg></a>
-        <a href=""><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <a href=""><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram"
+            width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"
+            stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <rect x="4" y="4" width="16" height="16" rx="4" />
             <circle cx="12" cy="12" r="3" />
             <line x1="16.5" y1="7.5" x2="16.5" y2="7.501" />
           </svg></a>
-        <a href="https://www.linkedin.com/company/rupeexpert/?viewAsMember=true"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <a href="https://www.linkedin.com/company/rupeexpert/?viewAsMember=true"><svg xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <rect x="4" y="4" width="16" height="16" rx="2" />
             <line x1="8" y1="11" x2="8" y2="16" />
@@ -125,15 +346,20 @@
             <line x1="12" y1="16" x2="12" y2="11" />
             <path d="M16 16v-3a2 2 0 0 0 -4 0" />
           </svg></a>
-        <a href=""><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <a href=""><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="44"
+            height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+            <path
+              d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
           </svg></a>
       </div>
     </div>
     <div class="footer-map">
       <div class="mapouter">
-        <div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=oceanone hq&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href="https://www.kokagames.com/fnf-friday-night-funkin-mods/">Friday Night Funkin Mods</a>
+        <div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no"
+            marginheight="0" marginwidth="0"
+            src="https://maps.google.com/maps?width=700&amp;height=400&amp;hl=en&amp;q=Sohrab Hall&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
         </div>
         <style>
           .mapouter {
@@ -156,7 +382,7 @@
         </style>
       </div>
     </div>
-  </section>
+  </div>
   <style>
     .footer2 {
       display: flex;
@@ -174,10 +400,10 @@
       text-decoration: none;
     }
   </style>
-  <section class="footer2">
-    <small>&copy; Copyright 2024, Insurance Tool</small>
+  <div class="footer2">
+    <small>&copy; Copyright 2024, Layloan</small>
     <small> Developed By <a href="https://www.techtasa.com/">Techtasa</a></small>
-  </section>
+  </div>
 </body>
 <script src="../js/script.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
