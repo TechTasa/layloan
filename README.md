@@ -25,19 +25,10 @@ cd rupeexpertNode
 ## Select Branch
 
 ```
-git checkout -b main
-```
-OR
-```
 git checkout -b test
+
 ```
-OR
-```
-git checkout -b sell
-```
-OR
-```
-git checkout -b inhouse
+
 ```
 ## Install Dependencies
 ``` 
@@ -82,7 +73,7 @@ git commit -m "changed this & that"
 Change "changed this & that" with the changes you made.For e.g you changed services page : "changed service page"
 
 ```
-git push
+git push origin test
 ```
     
 ## File/Folder Structure
