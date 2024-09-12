@@ -86,7 +86,7 @@ exports.updateJob =[upload.single('document'),  async (req, res) => {
 
   try {
     const updateData = req.body;
-    console.log(updateData);
+    // console.log(updateData);
     // Handle file upload (optional):
     if (req.file) {
       // Check the file type

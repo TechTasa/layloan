@@ -16,7 +16,7 @@ exports.blog_create_get = function(req, res) {
 };
 
 exports.blog_create_post = async function(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     const blog = new Blog({
         ...req.body,
         image: req.file ? req.file.path : null,  // Check if file is provided

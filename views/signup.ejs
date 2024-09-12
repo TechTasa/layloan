@@ -187,25 +187,25 @@
             <%= error %>
           </div>
           <% } %>
-        <input type="text" name="username" placeholder="TechTasa ID" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
-        <input type="hidden" name="userType" id="userTypeInput" value="customer">
-        <input type="hidden" name="phone" id="verifiedPhone">
-        <input type="hidden" name="countryCode" id="verifiedCountryCode">
-        <input type="text" name="referralId" placeholder="Referral ID (optional)">
-        <div class="apple-checkbox-container">
-          <input type="checkbox" id="brokerCheckbox" name="becomeBroker" class="apple-checkbox">
-          <label for="brokerCheckbox" class="apple-checkbox-label">
-            <span class="checkbox-custom"></span>
-            <span class="label-text">Work with us as a Broker ?</span>
-          </label>
-        </div>
-        <div id="phoneVerificationContainer">
-          <div class="pe_signin_button" data-client-id="18437036855414457333"></div>
-        </div>
-      </form>
+          <input type="hidden" name="username" placeholder="TechTasa ID" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="password" name="password" placeholder="Password" required>
+          <input type="hidden" name="confirmPassword" placeholder="Confirm Password" required>
+          <input type="hidden" name="userType" id="userTypeInput" value="customer">
+          <input type="hidden" name="phone" id="verifiedPhone">
+          <input type="hidden" name="countryCode" id="verifiedCountryCode">
+          <input style="display: none;" type="text" name="referralId" placeholder="Referral ID (optional)">
+          <div style="display: none;" class="apple-checkbox-container">
+            <input type="checkbox" id="brokerCheckbox" name="becomeBroker" class="apple-checkbox">
+            <label for="brokerCheckbox" class="apple-checkbox-label">
+              <span class="checkbox-custom"></span>
+              <span class="label-text">Work with us as a Broker ?</span>
+            </label>
+          </div>
+          <div id="phoneVerificationContainer">
+            <div class="pe_signin_button" data-client-id="18437036855414457333"></div>
+          </div>
+        </form>
       <div class="loginLink">
         <a href="/auth/login" class="alreadyAccount cta">Already a member? <b>Login</b></a>
       </div>
@@ -229,18 +229,32 @@
       script.onload = function () {
         const container = document.getElementById('phoneVerificationContainer');
 
-        // Add click event listener to the container
-        container.addEventListener('click', function (event) {
+         // Add click event listener to the container
+         container.addEventListener('click', function(event) {
           const form = document.getElementById('signupForm');
-          const username = form.username.value;
+          const username = form.email.value;
+          form.username.value=username;
           const password = form.password.value;
-          const confirmPassword = form.confirmPassword.value;
+          const confirmPassword = form.password.value;
           const email = form.email.value;
+
+          function isValidEmail(email) {
+            // Regular expression for basic email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+          }
 
           if (!username || !password || !confirmPassword || !email) {
             event.preventDefault();
             event.stopPropagation();
             alert('Please fill in all required fields before verifying your phone number.');
+            return false;
+          }
+
+          if (!isValidEmail(email)) {
+            event.preventDefault();
+            event.stopPropagation();
+            alert('Please enter a valid email address.');
             return false;
           }
 
@@ -250,7 +264,7 @@
             alert('Passwords do not match.');
             return false;
           }
-        }, true);  // Use capture phase to intercept the click before the button's own listener
+        }, true); // Use capture phase to intercept the click before the button's own listener
       }
 
       document.body.appendChild(script);

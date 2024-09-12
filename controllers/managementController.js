@@ -136,7 +136,7 @@ exports.editUser = async (req, res) => {
       return res.status(404).send("User not found");
     }
     const userType = req.session.user.userType;
-    console.log(user);
+    // console.log(user);
 
     res.render("editmanagement", { user: user, userType });
   } catch (err) {
