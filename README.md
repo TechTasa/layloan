@@ -79,8 +79,6 @@ npm start
 ```
 
 
-## By default it will run on http://localhost:611
-
 
 ## Making Changes & Pushing to github
 
