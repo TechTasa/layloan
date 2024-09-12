@@ -26,10 +26,8 @@ cd rupeexpertNode
 
 ```
 git checkout -b test
-
 ```
 
-```
 ## Install Dependencies
 ``` 
 npm install
