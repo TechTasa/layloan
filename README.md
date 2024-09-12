@@ -19,7 +19,7 @@ git clone https://github.com/TechTasa/rupeexpertNode.git
 ```
 
 ```
-cd rupeexpertNode
+cd layloan
 ```
 ## Select Branch
 
