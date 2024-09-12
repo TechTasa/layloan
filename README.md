@@ -28,6 +28,11 @@ cd rupeexpertNode
 ## Select Branch
 
 ```
+git switch test
+```
+## Create Branch
+
+```
 git checkout -b test
 ```
 
