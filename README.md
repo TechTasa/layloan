@@ -15,7 +15,7 @@ git config --global user.email johndoe@example.com
  Open Terminal In VSCODE:
 
 ```
-git clone https://github.com/TechTasa/rupeexpertNode.git
+git clone https://github.com/TechTasa/layloan.git
 ```
 
 ```
