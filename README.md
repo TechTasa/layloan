@@ -1,4 +1,3 @@
-# Branch Test
 # Requirements
  1.Node Js <a href="https://nodejs.org/en/download/current">Download</a><br>
  2.Git <a href="https://git-scm.com/downloads">Download</a><br>
@@ -25,17 +24,29 @@ cd rupeexpertNode
 ## Select Branch
 
 ```
+git switch main
+```
+```
+git switch test
+```
+```
+git switch sell
+```
+```
+git switch inhouse
+```
+## Create Branch
+
+```
 git checkout -b main
 ```
-OR
+
 ```
 git checkout -b test
 ```
-OR
 ```
 git checkout -b sell
 ```
-OR
 ```
 git checkout -b inhouse
 ```
@@ -82,7 +93,7 @@ git commit -m "changed this & that"
 Change "changed this & that" with the changes you made.For e.g you changed services page : "changed service page"
 
 ```
-git push
+git push origin test
 ```
     
 ## File/Folder Structure
