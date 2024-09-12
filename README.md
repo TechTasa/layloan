@@ -1,7 +1,3 @@
-# Branch
-```
-Test
-```
 # Requirements
  1.Node Js <a href="https://nodejs.org/en/download/current">Download</a><br>
  2.Git <a href="https://git-scm.com/downloads">Download</a><br>
@@ -28,14 +24,32 @@ cd rupeexpertNode
 ## Select Branch
 
 ```
+git switch main
+```
+```
 git switch test
+```
+```
+git switch sell
+```
+```
+git switch inhouse
 ```
 ## Create Branch
 
 ```
-git checkout -b test
+git checkout -b main
 ```
 
+```
+git checkout -b test
+```
+```
+git checkout -b sell
+```
+```
+git checkout -b inhouse
+```
 ## Install Dependencies
 ``` 
 npm install
