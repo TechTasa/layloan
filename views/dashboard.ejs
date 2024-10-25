@@ -28,103 +28,166 @@
     padding: 0px;
   }
 
-  .dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
+  /* New Overview Styles */
+  .overview-container {
+      padding: 1.5rem;
+      background-color: #f5f5f7;
+    }
 
-  .widget {
-    background-color: var(--card-background);
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-  }
+    .overview-header {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+      border-radius: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
 
-  .widget-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
+    .overview-header h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 0.5rem;
+    }
 
-  .widget-content {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .overview-header p {
+      color: #6e6e73;
+      font-size: 1rem;
+    }
 
-  .big-number {
-    font-size: 36px;
-    font-weight: 300;
-  }
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
 
-  .progress-bar {
-    width: 100%;
-    height: 8px;
-    background-color: #E5E5EA;
-    border-radius: 4px;
-    overflow: hidden;
-  }
+    .stat-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+    }
 
-  .progress-bar-fill {
-    height: 100%;
-    background-color: var(--primary-color);
-  }
+    .stat-card:hover {
+      transform: translateY(-2px);
+    }
 
-  .mini-chart {
-    width: 100%;
-    height: 60px;
-  }
+    .stat-title {
+      font-size: 0.875rem;
+      color: #6e6e73;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
 
-  .status-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 1rem;
+    }
 
-  .status-item {
-    text-align: center;
-  }
+    .stat-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      background: #f5f5f7;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      color: #6e6e73;
+    }
 
-  .status-number {
-    font-size: 24px;
-    font-weight: 600;
-  }
+    .progress-container {
+      background: #f5f5f7;
+      height: 6px;
+      border-radius: 3px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
 
-  .status-label {
-    font-size: 12px;
-    color: #8E8E93;
-  }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #007AFF 0%, #5856D6 100%);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
 
-  .status-today {
-    font-size: 14px;
-    color: var(--secondary-color);
-    font-weight: 500;
-  }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
 
-  .lead-types-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-  }
+    .stat-item {
+      background: #f5f5f7;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+    }
 
-  .status-item2 {
-    width: 100%;
-    /* Ensure full width */
-    margin-bottom: 10px;
-    /* Space between items */
-    border-radius: 12px;
-    /* Rounded edges */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Drop shadow */
-    padding: 15px;
-    /* Add some padding for better spacing */
-    background-color: #fff;
-    /* Background color for visibility */
-  }
+    .stat-item-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-item-label {
+      font-size: 0.75rem;
+      color: #6e6e73;
+    }
+
+    .referral-card {
+      background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+      color: white;
+    }
+
+    .referral-link {
+      background: rgba(255,255,255,0.1);
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      margin-top: 0.75rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .referral-link:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Mobile Responsive Adjustments */
+    @media (max-width: 768px) {
+      .overview-container {
+        padding: 1rem;
+      }
+
+      .overview-header {
+        padding: 1rem;
+      }
+
+      .overview-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-card {
+        padding: 1.25rem;
+      }
+
+      .stat-value {
+        font-size: 1.75rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }kground color for visibility */
+  
 
   .lead-types-grid {
     display: flex;
@@ -228,92 +291,131 @@
         </div>
       </div>
     </nav>
-    <div class="h-screen flex-grow-1 overflow-y-lg-auto">
-      <header class="bg-surface-primary border-bottom pt-6">
-        <div class="container-fluid">
-          <div class="mb-npx">
-            <div class="row align-items-center">
-              <div class="col-sm-6 col-12 mb-4 mb-sm-0">
-                <h1 class="h1 mb-0 ls-tight">Overview</h1>
+   <!-- New Overview Content -->
+   <div class="h-screen flex-grow-1 overflow-y-lg-auto">
+    <main class="py-6 bg-surface-secondary">
+      <div class="overview-container">
+        <div class="overview-header">
+          <h1>Welcome, <%= userName %></h1>
+          <p>Here's your lead generation overview</p>
+        </div>
 
-              </div>
+        <div class="overview-grid">
+          <!-- Total Leads Card -->
+          <div class="stat-card">
+            <div class="stat-title">Total Leads</div>
+            <div class="stat-value"><%= totalLeads %></div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: <%= (todayLeads / totalLeads) * 100 %>%;"></div>
+            </div>
+            <div class="stat-badge">
+              Today's Leads: <%= todayLeads %>
             </div>
           </div>
-        </div>
-      </header>
-      <main class="py-6 bg-surface-secondary">
-        <div class="container-fluid">
-          <div class="row g-6 mb-6">
 
-            <% if (userType=="admin" || userType=="agent" ) { %>
-            <!-- here -->
-            <h1>Welcome, <%= userName %></h1>
-            <div class="dashboard">
-
-              <div class="widget">
-                <div class="widget-title">Total Leads</div>
-                <div class="widget-content">
-                  <div class="big-number"><%= totalLeads %></div>
+          <!-- Lead Types Card -->
+          <div class="stat-card">
+            <div class="stat-title">Lead Types</div>
+            <div class="stats-grid">
+              <% for (let type in leadTypeCounts) { %>
+                <div class="stat-item">
+                  <div class="stat-item-value"><%= leadTypeCounts[type].allTime %></div>
+                  <div class="stat-item-label"><%= type.charAt(0).toUpperCase() + type.slice(1) %></div>
+                  <div class="stat-badge">Today: <%= leadTypeCounts[type].today %></div>
                 </div>
-                <div class="widget-title">Today's Leads</div>
-                <div class="progress-bar">
-                  <div class="progress-bar-fill" style="width: <%= (todayLeads / totalLeads) * 100 %>%;"></div>
-                </div>
-                <div class="widget-content">
-                  <div class="big-number"><%= todayLeads %></div>
-                </div>
-              </div>
-
-              <div class="widget">
-                <div class="widget-title">Lead Types Distribution</div>
-                <div class="lead-types-grid">
-                  <% for (let type in leadTypeCounts) { %>
-                  <div class="status-item">
-                    <div class="status-number"><%= leadTypeCounts[type].allTime %></div>
-                    <div class="status-today">Today: <%= leadTypeCounts[type].today %></div>
-                    <div class="status-label"><%= type.charAt(0).toUpperCase() + type.slice(1) %></div>
-                  </div>
-                  <% } %>
-                </div>
-              </div>
-
-              <div class="widget">
-                <div class="widget-title">Lead Status</div>
-                <div class="status-grid">
-                  <% for (let status in statusCounts) { %>
-                  <div class="status-item">
-                    <div class="status-number"><%= statusCounts[status].allTime %></div>
-                    <div class="status-today">Today: <%= statusCounts[status].today %></div>
-                    <div class="status-label"><%= status.charAt(0).toUpperCase() + status.slice(1).replace('_', ' ') %></div>
-                  </div>
-                  <% } %>
-                </div>
-              </div>
-
-              <div class="widget">
-                <div class="widget-title">Affiliate Links</div>
-                <div class="lead-types-grid" style="display: flex; flex-direction: column;">
-                  <!-- Use flexbox to stack items -->
-                  <% for (let referral of referralCounts) { %>
-                  <div class="status-item2">
-                    <!-- Use the updated CSS class -->
-                    <div class="status-number"><%= referral.count %></div>
-                    <div class="status-label">
-                      <%= referral.referral_code %>
-                      <br>
-                      <a href="https://combined.techtasa.com/?referral=<%= referral.referral_code %>" target="_blank">
-                        https://combined.techtasa.com/?referral=<%= referral.referral_code %>
-                      </a>
-                    </div>
-                  </div>
-                  <% } %>
-                </div>
-              </div>
               <% } %>
+            </div>
+          </div>
 
+          <!-- Lead Status Card -->
+          <div class="stat-card">
+            <div class="stat-title">Lead Status</div>
+            <div class="stats-grid">
+              <% for (let status in statusCounts) { %>
+                <div class="stat-item">
+                  <div class="stat-item-value"><%= statusCounts[status].allTime %></div>
+                  <div class="stat-item-label">
+                    <%= status.charAt(0).toUpperCase() + status.slice(1).replace('_', ' ') %>
+                  </div>
+                  <div class="stat-badge">Today: <%= statusCounts[status].today %></div>
+                </div>
+              <% } %>
+            </div>
+          </div>
 
-      </main>
-    </div>
+          <!-- Referral Links Card -->
+          <% if (referralCounts && referralCounts.length > 0) { %>
+            <div class="stat-card referral-card">
+              <div class="stat-title" style="color: rgba(255,255,255,0.9)">Affiliate Links</div>
+              <% for (let referral of referralCounts) { %>
+                <div class="referral-link" data-referral="<%= referral.referral_code %>">
+                  <div>https://combined.techtasa.com/?referral=<%= referral.referral_code %></div>
+                  <div class="stat-badge" style="background: rgba(255,255,255,0.1); margin-top: 0.5rem">
+                    <%= referral.count %> leads generated
+                  </div>
+                </div>
+              <% } %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+  // Enhanced interactivity for referral links
+  document.addEventListener('DOMContentLoaded', function() {
+    const referralLinks = document.querySelectorAll('.referral-link');
+    
+    referralLinks.forEach(link => {
+      link.addEventListener('click', async function() {
+        const url = this.querySelector('div').textContent.trim();
+        try {
+          await navigator.clipboard.writeText(url);
+          
+          // Create and show notification
+          const notification = document.createElement('div');
+          notification.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #007AFF;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            animation: slideIn 0.3s ease-out;
+            z-index: 1000;
+          `;
+          notification.textContent = 'Link copied to clipboard!';
+          document.body.appendChild(notification);
+
+          // Remove notification after 2 seconds
+          setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease-in';
+            setTimeout(() => notification.remove(), 300);
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy text: ', err);
+        }
+      });
+    });
+  });
+
+  // Add animation styles
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+</script>
 
 
 </body>
