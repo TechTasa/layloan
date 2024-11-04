@@ -211,6 +211,12 @@ async function getReferralCounts() {
     res.render("PropertyInsurance",{loggedin})
 
   })
+  app.get('/about', (req, res) => {
+    const loggedin=req.session.user;
+    res.render("about",{loggedin})
+    // res.sendFile(path.join(__dirname, 'public','html', 'contact.html'));
+  })
+
   app.get('/contact', (req, res) => {
     const loggedin=req.session.user;
     res.render("contact",{loggedin})
