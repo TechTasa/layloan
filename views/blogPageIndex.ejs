@@ -40,15 +40,19 @@
     </nav>
     <section class="blog">
        
-        <% blogs.forEach(function(blog) { %>
+        <section class="blog container">
+            <% blogs.forEach(function(blog) { %>
             <div class="card">
-                <img src="/<%= blog.image %>" alt="<%= blog.title %>">
-                <div class="card-body">
-                    <h4><%= blog.title %></h4>
-                    <a href="/blog/<%= blog._id %>" class="btn btn-primary">Read More</a>
-                </div>
+              <div class="card-image">
+                <img src="/<%= blog.image %>" alt="<%= blog.title %>" class="image-fix">
+              </div>
+              <div class="card-body">
+                <h4><%= blog.title %></h4>
+                <a href="/blog/<%= blog._id %>" class="btn btn-primary">Read More</a>
+              </div>
             </div>
-        <% }); %>
+            <% }); %>
+          </section>
 
 
     </section>
