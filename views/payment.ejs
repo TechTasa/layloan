@@ -144,6 +144,11 @@
     </div>
 
     <!-- Payment Options as Buttons -->
+    <div class="option" onclick="payViaQRPay()">
+      <img src="/qrcode.png" alt="Google Pay">
+      <span class="option-text">Use QR To Pay</span>
+    </div>
+
     <div class="option" onclick="payViaGooglePay()">
       <img src="/img/image1.png" alt="Google Pay">
       <span class="option-text">Google Pay</span>
@@ -245,6 +250,10 @@
       var url = "";
       var qrText = "tez://upi/pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tn=" + desc + "&url=" + url + "&cu=INR";
       window.location.href = qrText;
+      openModal(); // Open modal
+    }
+    function payViaQRPay() {
+      
       openModal(); // Open modal
     }
 
