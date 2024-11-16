@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Confirmed</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f9f9f9;
+      font-family: Arial, sans-serif;
+      text-align: center;
+     
+    }
+
+    
+
+    .confirmation {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .confirmation h1 {
+      color: #05D05A;
+    }
+    .loader {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      scale: 0; /* Initial scale */
+      opacity: 0; /* Initial opacity */
+      animation: fadeInScale 0.5s forwards; /* Animation for fade in and scale */
+    }
+    @keyframes fadeInScale {
+      0% {
+        scale: 0;
+        opacity: 0;
+      }
+      100% {
+        scale: 1;
+        opacity: 2;
+      }
+    }
+    .button-3 {
+      appearance: none;
+      background-color: #2ea44f;
+      border: 1px solid rgba(27, 31, 35, .15);
+      border-radius: 6px;
+      box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+      box-sizing: border-box;
+      color: #fff;
+      cursor: pointer;
+      display: inline-block;
+      font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      margin: 16px 16px;
+      padding: 6px 16px;
+      position: relative;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .button-3:hover {
+      background-color: #2c974b;
+    }
+    .countdown-message {
+      font-size: 16px;
+      color: #333;
+      margin-top: 20px; /* Add some space above the message */
+    }
+  </style>
+</head>
+<body>
+  <div class="confirmation">
+    <div class="loader">
+      <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script> 
+      <dotlottie-player src="https://lottie.host/43f8ad75-49c0-4305-afcc-a33af6a8e575/AlQxSN7wrr.json" background="transparent" speed="1" style="width: 100%; height: 100%;" autoplay></dotlottie-player>
+    </div>
+    <h1>Payment Confirmed Successfully!</h1>
+    
+    <!-- Countdown Timer Message -->
+    <div class="countdown-message" id="countdownMessage">You will be redirected in <span id="timeLeft">60</span> seconds.</div>
+    
+    <a href="/"><button class="button-3" role="button">Back To Home Page</button></a>
+  </div>
+
+  <script>
+    let countdownTimer; // Variable to hold the countdown timer
+    let timeLeft = 60; // Set to 60 seconds
+
+    function startCountdown() {
+      const countdownElement = document.getElementById('timeLeft');
+      countdownElement.textContent = timeLeft; // Set initial time left
+
+      countdownTimer = setInterval(() => {
+        timeLeft--;
+        countdownElement.textContent = timeLeft; // Update time left
+
+        if (timeLeft <= 0) {
+          clearInterval(countdownTimer);
+          window.location.href = '/auth/login'; // Redirect to login after countdown
+        }
+      }, 1000);
+    }
+
+    // Start the countdown when the page loads
+    window.onload = startCountdown;
+  </script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Options UI</title>
+  <style>
+    /* Basic Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Container Styling */
+    .container {
+      width: 350px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      font-size: 14px;
+    }
+
+    /* Section Title */
+    .section-title {
+      font-weight: bold;
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    /* Header */
+    .header {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 15px;
+      color: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header .offers {
+      color: #4caf50;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /* Payment Option Buttons */
+    .option {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .option:hover {
+      background-color: #f0f0f0;
+    }
+
+    .option img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+
+    .option-text {
+      flex-grow: 1;
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      width: 300px;
+    }
+
+    /* Loader Animation */
+    .loader {
+      border: 8px solid #f3f3f3; /* Light grey */
+      border-top: 8px solid #3498db; /* Blue */
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Countdown Timer */
+    .countdown {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="section-title">UPI (Pay via any App)</div><br>
+
+    <div class="header">
+      <span>UPI Options</span>
+      <!-- <span class="offers">3 Offers</span> -->
+    </div>
+
+    <!-- Payment Options as Buttons -->
+    <div class="option" onclick="payViaGooglePay()">
+      <img src="/img/image1.png" alt="Google Pay">
+      <span class="option-text">Google Pay</span>
+    </div>
+
+    <div class="option" onclick="payViaPaytm()">
+      <img src="/img/image2.png" alt="Paytm">
+      <span class="option-text">Paytm</span>
+    </div>
+
+    <div class="option" onclick="payViaPhonePe()">
+      <img src="/img/image3.png" alt="PhonePe">
+      <span class="option-text">PhonePe </span>
+    </div>
+
+    <div class="option" onclick="enterUpiId()">
+      <img src="/img/image4.png" alt="Enter UPI ID">
+      <span class="option-text">Enter UPI ID</span>
+    </div>
+  </div>
+
+  <!-- Modal for Payment Processing -->
+  <div id="paymentModal" class="modal">
+    <div class="modal-content">
+      <h2>Scan To Pay</h2><br>
+      <img src="/qrcode.png" alt=""><br><br>
+      <h2>Payment in Progress</h2>
+      <p>Waiting for payment confirmation...</p>
+      <div class="loader"></div>
+      <div class="countdown" id="countdown">0:15</div>
+    </div>
+  </div>
+
+  <script>
+    let countdownTimer; // Variable to hold the countdown timer
+    let timeLeft = 15; // Set to 10 seconds
+
+    function startCountdown() {
+      const countdownElement = document.getElementById('countdown');
+      countdownElement.style.display = 'block'; // Show the countdown
+      timeLeft = 5; // Reset time left
+
+      countdownTimer = setInterval(() => {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        countdownElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        timeLeft--;
+
+        if (timeLeft < 0) {
+          clearInterval(countdownTimer);
+          countdownElement.innerHTML=`<p>Payment Failed⚠️
+          <p>No Response</p>
+        </p><br>
+        <a href="/auth/signup">retry?</a>`
+          // postPaymentConfirmation(); // Call function to post confirmation
+        }
+      }, 1000);
+    }
+
+    function postPaymentConfirmation() {
+  // Post to /confirm-payment after timeout
+  fetch('/auth/confirm-payment', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ amount: 2 }) // Example amount
+  })
+  .then(response => {
+    if (response.ok) {
+      // Redirect to the payment confirmation page
+      // window.location.href = '/auth/payment-confirmed'; // Adjust this route as needed
+    } else {
+      // Handle errors
+      alert('Error confirming payment. Please try again.');
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Error confirming payment. Please try again.');
+  });
+}
+
+    function openModal() {
+      document.getElementById('paymentModal').style.display = 'flex'; // Show the modal
+      startCountdown(); // Start countdown
+    }
+
+    function closeModal() {
+      document.getElementById('paymentModal').style.display = 'none'; // Hide the modal
+      clearInterval(countdownTimer); // Clear the countdown
+    }
+
+    function payViaGooglePay() {
+      var name = "Mohammad Tasaduq Khan";
+      var vpa = "tasaduqkhan2222-1@okaxis";
+      var amount = "2";
+      var desc = "";
+      var url = "";
+      var qrText = "tez://upi/pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tn=" + desc + "&url=" + url + "&cu=INR";
+      window.location.href = qrText;
+      openModal(); // Open modal
+    }
+
+    function payViaPaytm() {
+      var name = "Mohammad Tasaduq Khan";
+      var vpa = "tasaduqkhan2222-1@okaxis";
+      var amount = "2";
+      var desc = "";
+      var url = "";
+      var qrText = "paytmmp://pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tn=" + desc + "&url=" + url + "&cu=INR";
+      window.location.href = qrText;
+      openModal(); // Open modal
+    }
+
+    function payViaPhonePe() {
+      var name = "Mohammad Tasaduq Khan";
+      var vpa = "tasaduqkhan2222-1@okaxis";
+      var amount = "2";
+      var desc = "";
+      var url = "";
+      var qrText = "phonepe://pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tn=" + desc + "&url=" + url + "&cu=INR";
+      window.location.href = qrText;
+      openModal(); // Open modal
+    }
+
+    function enterUpiId() {
+      var name = "Mohammad Tasaduq Khan";
+      var vpa = "tasaduqkhan2222-1@okaxis";
+      var amount = "2";
+      var desc = "";
+      var url = "";
+      var qrText = "upi://pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tn=" + desc + "&url=" + url + "&cu=INR";
+      window.location.href = qrText;
+      openModal(); // Open modal
+    }
+  </script>
+</body>
+</html>

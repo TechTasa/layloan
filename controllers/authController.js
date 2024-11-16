@@ -12,6 +12,7 @@ exports.signup = async (req, res) => {
         formData: req.body
       });
     }
+    
     // Check if a user with the provided phone number already exists
     const existingPhone = await User.findOne({ phone, countryCode });
     if (existingPhone) {
@@ -40,29 +41,22 @@ exports.signup = async (req, res) => {
       }
     }
 
-    // Create a new user
-    const newUser = await User.create({ 
-      username, 
-      email, 
-      password, 
-      userType, 
-      phone, 
+    // Create a temporary user object to hold data until payment is confirmed
+    const tempUser = {
+      username,
+      email,
+      password,
+      userType,
+      phone,
       countryCode,
       referralId: userReferralId,
-      referCount: 0, // Initialize referCount to 0
+      referCount: 0,
       referredBy: referringUser ? referringUser._id : undefined
-    });
+    };
 
-    // If there's a referring user, update their referCount and referredUsers
-    if (referringUser) {
-      await User.findByIdAndUpdate(referringUser._id, {
-        $inc: { referCount: 1 },
-        $push: { referredUsers: newUser._id }
-      });
-    }
-
-    req.session.user = newUser;
-    res.redirect('/');
+    // Store temp user data in session
+    req.session.tempUser = tempUser; 
+    return res.redirect('/auth/payment'); // Redirect to payment page
   } catch (err) {
     res.status(400).json({
       status: 'error',
@@ -166,39 +160,38 @@ exports.login = async (req, res) => {
   }
 };
 
-// exports.login = async (req, res) => {
-//   const { usernameOrEmail, password } = req.body;
-//   try {
-//     // Find user by username, email, or phone
-//     const user = await User.findOne({
-//       $or: [
-//         { username: usernameOrEmail },
-//         { email: usernameOrEmail },
-//         { phone: usernameOrEmail }
-//       ]
-//     });
+// New method to handle payment confirmation
+exports.confirmPayment = async (req, res) => {
+  const tempUser = req.session.tempUser; // Retrieve temp user data from session
+  if (!tempUser) {
+    return res.status(400).json({ status: 'error', message: 'No user data found' });
+  }
 
-//     if (!user) {
-//       return res.status(404).json({
-//         status: 'error',
-//         message: 'User not found'
-//       });
-//     }
-//     const isCorrect = await user.checkPassword(password);
-//     if (!isCorrect) {
-//       return res.status(400).json({
-//         status: 'error',
-//         message: 'Incorrect username/email/phone or password'
-//       });
-//     }
-//     req.session.user = user;
-//     res.redirect('/')
-//   } catch (err) {
-//     res.status(400).json({
-//       status: 'error',
-//       message: err.message
-//     });
-//   }
-// };
+  try {
+    // Create the user after payment confirmation
+    const newUser = await User.create({ 
+      ...tempUser,
+      referralId: tempUser.referralId,
+    });
+
+    // If there's a referring user, update their referCount and referredUsers
+    if (tempUser.referredBy) {
+      await User.findByIdAndUpdate(tempUser.referredBy, {
+        $inc: { referCount: 1 },
+        $push: { referredUsers: newUser._id }
+      });
+    }
+
+    req.session.user = newUser; // Log in the new user
+    delete req.session.tempUser; // Clear temp user data
+    
+    res.redirect('/'); // Redirect to home page
+  } catch (err) {
+    res.status(400).json({
+      status: 'error',
+      message: err.message
+    });
+  }
+};
 
 
