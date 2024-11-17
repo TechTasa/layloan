@@ -1,3 +1,5 @@
+// this is authController.js
+
 const User = require('../models/User');
 const https = require('https');
 

@@ -1,3 +1,4 @@
+<!-- this is payment.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -199,11 +200,8 @@
 
         if (timeLeft < 0) {
           clearInterval(countdownTimer);
-          countdownElement.innerHTML=`<p>Payment Failed⚠️
-          <p>No Response</p>
-        </p><br>
-        <a href="/auth/signup">retry?</a>`
-          // postPaymentConfirmation(); // Call function to post confirmation
+          countdownElement.innerHTML=`Redirecting....`
+           postPaymentConfirmation(); // Call function to post confirmation
         }
       }, 1000);
     }
@@ -220,7 +218,7 @@
   .then(response => {
     if (response.ok) {
       // Redirect to the payment confirmation page
-      // window.location.href = '/auth/payment-confirmed'; // Adjust this route as needed
+      window.location.href = '/auth/payment-confirmed'; // Adjust this route as needed
     } else {
       // Handle errors
       alert('Error confirming payment. Please try again.');
