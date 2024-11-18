@@ -209,3 +209,24 @@ exports.deleteUser = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
+exports.confirmPayment = async (req, res) => {
+  // Check if user is logged in
+  if (!req.session.user || req.session.user.userType !== 'admin') {
+    return res.redirect("/auth/login");
+  }
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    // Update the payment status to true
+    user.payment = true;
+    await user.save();
+
+    res.redirect("/dashboard/management");
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};

@@ -19,4 +19,6 @@ router.get('/edit/:userId', managementController.editUser);
 router.post('/edit/:userId', managementController.updateUser);
 router.get('/delete/:userId', managementController.deleteUser);
 
+router.get('/confirm-payment/:userId', managementController.confirmPayment);
+
 module.exports = router;

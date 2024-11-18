@@ -176,6 +176,7 @@
                 <a href="" class="nav-link font-regular" id="brokerBtn">Broker</a>
               </li>
               <% } %>
+              
             </ul>
           </div>
         </div>
@@ -219,10 +220,11 @@
                   <th scope="col">Username</th>
                   <th scope="col">Email</th>
                   <th scope="col">Phone</th>
-                  <th scope="col">Refered By</th>
+                  <th scope="col">Referred By</th>
                   <th scope="col">User Type</th>
+                  <th scope="col">Payment Status</th>
+                  <th scope="col">Confirm Payment</th>
                   <th colspan="2" scope="col">Actions</th>
-
                 </tr>
               </thead>
               <tbody>
@@ -233,9 +235,14 @@
                   <td><%= user.phone %></td>
                   <td><%= user.referrerUsername %></td>
                   <td><%= user.userType %></td>
+                  <td><%= user.payment ? 'Confirmed' : 'Pending' %></td>
+                  <td>
+                    <% if (!user.payment) { %>
+                      <a href="/dashboard/management/confirm-payment/<%= user._id %>" class="btn btn-sm btn-success">Confirm Payment</a>
+                    <% } %>
+                  </td>
                   <td>
                     <a href="/dashboard/management/edit/<%= user._id %>" class="btn btn-sm btn-neutral">Edit</a>
-
                   </td>
                   <td>
                     <a href="/dashboard/management/delete/<%= user._id %>" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-sm btn-neutral"><i class="bi bi-trash"></i></a>
@@ -397,6 +404,7 @@
                 <% }); %>
               </tbody>
             </table>
+            
           </div>
         </div>
       </main>
@@ -406,32 +414,32 @@
 <script src="/js/navToggle.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-  const buttons = ['admin', 'customer', 'partner', 'agent', 'hr', 'writer', 'broker'];
-  const tables = buttons.map(b => b + 'table');
+    const buttons = ['admin', 'customer', 'partner', 'agent', 'hr', 'writer', 'broker', 'payment'];
+    const tables = buttons.map(b => b + 'table');
 
-  function setupButton(buttonId) {
-    const button = document.getElementById(buttonId + 'Btn');
-    if (button) {
-      button.addEventListener("click", (e) => {
-        e.preventDefault();
-        tables.forEach(tableId => {
-          const table = document.getElementById(tableId);
-          if (table) {
-            table.style.display = (tableId === buttonId + 'table') ? "table" : "none";
-          }
+    function setupButton(buttonId) {
+      const button = document.getElementById(buttonId + 'Btn');
+      if (button) {
+        button.addEventListener("click", (e) => {
+          e.preventDefault();
+          tables.forEach(tableId => {
+            const table = document.getElementById(tableId);
+            if (table) {
+              table.style.display = (tableId === buttonId + 'table') ? "table" : "none";
+            }
+          });
+          buttons.forEach(btn => {
+            const btnElement = document.getElementById(btn + 'Btn');
+            if (btnElement) {
+              btnElement.classList.toggle("active", btn === buttonId);
+            }
+          });
         });
-        buttons.forEach(btn => {
-          const btnElement = document.getElementById(btn + 'Btn');
-          if (btnElement) {
-            btnElement.classList.toggle("active", btn === buttonId);
-          }
-        });
-      });
+      }
     }
-  }
 
-  buttons.forEach(setupButton);
-});
+    buttons.forEach(setupButton);
+  });
 </script>
 
 

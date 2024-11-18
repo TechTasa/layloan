@@ -53,8 +53,10 @@ exports.signup = async (req, res) => {
       countryCode,
       referralId: userReferralId,
       referCount: 0,
-      referredBy: referringUser ? referringUser._id : undefined
+      referredBy: referringUser ? referringUser._id : undefined,
+      payment: false  
     };
+console.log(tempUser);
 
     // Store temp user data in session
     req.session.tempUser = tempUser; 
@@ -137,6 +139,14 @@ exports.login = async (req, res) => {
         formData: req.body
       });
     }
+
+    // Check if payment is confirmed only for userType "customer"
+    if (user.userType === "customer" && !user.payment) {
+      return res.render('login', { 
+        error: 'Payment not confirmed. Please complete payment to log in.',
+        formData: req.body
+      });
+    }
     
     if (phone) {
       // If phone is provided, we assume OTP verification has already been done
@@ -171,6 +181,8 @@ exports.confirmPayment = async (req, res) => {
 
   try {
     // Create the user after payment confirmation
+    console.log(tempUser);
+    
     const newUser = await User.create({ 
       ...tempUser,
       referralId: tempUser.referralId,
@@ -184,7 +196,7 @@ exports.confirmPayment = async (req, res) => {
       });
     }
 
-    req.session.user = newUser; // Log in the new user
+    // req.session.user = newUser; // Log in the new user
     delete req.session.tempUser; // Clear temp user data
     
     res.redirect('/'); // Redirect to home page

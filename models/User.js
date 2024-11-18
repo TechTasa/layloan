@@ -50,6 +50,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide phone number']
   },
+  payment: { 
+    type: Boolean, 
+    default: false 
+  },
   countryCode: {
     type: String,
     required: [true, 'Please provide country code']
