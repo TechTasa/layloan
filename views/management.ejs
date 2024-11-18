@@ -235,7 +235,11 @@
                   <td><%= user.phone %></td>
                   <td><%= user.referrerUsername %></td>
                   <td><%= user.userType %></td>
-                  <td><%= user.payment ? 'Confirmed' : 'Pending' %></td>
+                  <td>
+                    <span class="<%= user.payment ? 'text-success' : 'text-danger' %>">
+                      <%= user.payment ? 'Confirmed' : 'Pending' %>
+                    </span>
+                  </td>
                   <td>
                     <select class="payment-status-select form-select form-select-sm <%= user.payment ? 'text-success' : 'text-danger' %>"
                       data-user-id="<%= user._id %>"
@@ -468,6 +472,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update the select color based on the new status
         this.className = `payment-status-select form-select form-select-sm ${newStatus ? 'text-success' : 'text-danger'}`;
+        location.reload();
       } catch (error) {
         console.error('Error updating payment status:', error);
         alert('Failed to update payment status');
