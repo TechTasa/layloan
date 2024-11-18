@@ -5,8 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payment Options UI</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     /* Basic Reset */
+    #qrcode {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
     * {
       box-sizing: border-box;
       margin: 0;
@@ -175,7 +182,7 @@
   <div id="paymentModal" class="modal">
     <div class="modal-content">
       <h2>Scan To Pay</h2><br>
-      <img src="/qrcode.png" alt=""><br><br>
+      <div id="qrcode"></div><br>
       <h2>Payment in Progress</h2>
       <p>Waiting for payment confirmation...</p>
       <div class="loader"></div>
@@ -186,6 +193,23 @@
   <script>
     let countdownTimer; // Variable to hold the countdown timer
     let timeLeft = 15; // Set to 10 seconds
+    let qrcode = null;
+
+        function generateQRCode(text) {
+            // Clear previous QR code if it exists
+            const qrcodeDiv = document.getElementById('qrcode');
+            qrcodeDiv.innerHTML = '';
+            
+            // Create new QR code
+            qrcode = new QRCode(qrcodeDiv, {
+                text: text,
+                width: 200,
+                height: 200,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
 
     function startCountdown() {
       const countdownElement = document.getElementById('countdown');
@@ -230,10 +254,11 @@
   });
 }
 
-    function openModal() {
-      document.getElementById('paymentModal').style.display = 'flex'; // Show the modal
-      startCountdown(); // Start countdown
-    }
+function openModal(qrText) {
+            document.getElementById('paymentModal').style.display = 'flex';  
+            generateQRCode(qrText); // Generate QR code with the payment URL
+            startCountdown();
+        }
 
     function closeModal() {
       document.getElementById('paymentModal').style.display = 'none'; // Hide the modal
@@ -248,11 +273,16 @@
       var url = "";
       var qrText = "tez://upi/pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tn=" + desc + "&url=" + url + "&cu=INR";
       window.location.href = qrText;
-      openModal(); // Open modal
+      openModal(qrText); // Open modal
     }
     function payViaQRPay() {
-      
-      openModal(); // Open modal
+      var name = "MohammadTasaduqKhan";
+            var vpa = "tasaduqkhan2222-1@okaxis";
+            var amount = "2";
+            var desc = "";
+            var url = "";
+            var qrText = "upi://pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tn=" + desc + "&url=" + url + "&cu=INR";
+            openModal(qrText);
     }
 
     function payViaPaytm() {
@@ -263,7 +293,7 @@
       var url = "";
       var qrText = "paytmmp://pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tn=" + desc + "&url=" + url + "&cu=INR";
       window.location.href = qrText;
-      openModal(); // Open modal
+      openModal(qrText); // Open modal
     }
 
     function payViaPhonePe() {
@@ -274,7 +304,7 @@
       var url = "";
       var qrText = "phonepe://pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tn=" + desc + "&url=" + url + "&cu=INR";
       window.location.href = qrText;
-      openModal(); // Open modal
+      openModal(qrText); // Open modal
     }
 
     function enterUpiId() {
@@ -285,7 +315,7 @@
       var url = "";
       var qrText = "upi://pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tn=" + desc + "&url=" + url + "&cu=INR";
       window.location.href = qrText;
-      openModal(); // Open modal
+      openModal(qrText); // Open modal
     }
   </script>
 </body>
