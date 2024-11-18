@@ -18,7 +18,10 @@ router.get('/login', (req, res) => {
 
 // New route for the payment page
 router.get('/payment', (req, res) => {
-  res.render('payment'); // Render the payment page
+  if (!req.session.tempUser) {
+    return res.redirect('/auth/signup');
+  }
+  res.render('payment', { tempUser: req.session.tempUser }); 
 });
 router.get('/payment-confirmed', (req, res) => {
   res.render('paymentConfirmed'); // Render the payment page

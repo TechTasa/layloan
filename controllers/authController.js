@@ -56,7 +56,7 @@ exports.signup = async (req, res) => {
       referredBy: referringUser ? referringUser._id : undefined,
       payment: false  
     };
-console.log(tempUser);
+
 
     // Store temp user data in session
     req.session.tempUser = tempUser; 
