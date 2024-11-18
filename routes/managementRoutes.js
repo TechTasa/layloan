@@ -20,5 +20,6 @@ router.post('/edit/:userId', managementController.updateUser);
 router.get('/delete/:userId', managementController.deleteUser);
 
 router.get('/confirm-payment/:userId', managementController.confirmPayment);
-
+// Add this to your managementRoutes.js
+router.post('/update-payment/:userId', managementController.updatePaymentStatus);
 module.exports = router;

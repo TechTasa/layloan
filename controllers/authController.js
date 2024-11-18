@@ -143,7 +143,7 @@ exports.login = async (req, res) => {
     // Check if payment is confirmed only for userType "customer"
     if (user.userType === "customer" && !user.payment) {
       return res.render('login', { 
-        error: 'Payment not confirmed. Please complete payment to log in.',
+        error: 'Payment Verification Pending: Please Try Again After 24 hours.',
         formData: req.body
       });
     }

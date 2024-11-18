@@ -237,9 +237,12 @@
                   <td><%= user.userType %></td>
                   <td><%= user.payment ? 'Confirmed' : 'Pending' %></td>
                   <td>
-                    <% if (!user.payment) { %>
-                      <a href="/dashboard/management/confirm-payment/<%= user._id %>" class="btn btn-sm btn-success">Confirm Payment</a>
-                    <% } %>
+                    <select class="payment-status-select form-select form-select-sm <%= user.payment ? 'text-success' : 'text-danger' %>"
+                      data-user-id="<%= user._id %>"
+                      <%= userType !== 'admin' ? 'disabled' : '' %>>
+                <option value="pending" <%= !user.payment ? 'selected' : '' %>>Pending</option>
+                <option value="confirmed" <%= user.payment ? 'selected' : '' %>>Confirmed</option>
+              </select>
                   </td>
                   <td>
                     <a href="/dashboard/management/edit/<%= user._id %>" class="btn btn-sm btn-neutral">Edit</a>
@@ -440,8 +443,55 @@
 
     buttons.forEach(setupButton);
   });
+  // Frontend: Replace the payment confirmation button with a select dropdown
+// Add this script to the bottom of your HTML file
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle payment status changes
+  document.querySelectorAll('.payment-status-select').forEach(select => {
+    select.addEventListener('change', async function() {
+      const userId = this.getAttribute('data-user-id');
+      const newStatus = this.value === 'confirmed';
+      
+      try {
+        const response = await fetch(`/dashboard/management/update-payment/${userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ payment: newStatus })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to update payment status');
+        }
+        
+        // Update the select color based on the new status
+        this.className = `payment-status-select form-select form-select-sm ${newStatus ? 'text-success' : 'text-danger'}`;
+      } catch (error) {
+        console.error('Error updating payment status:', error);
+        alert('Failed to update payment status');
+        // Revert the select to its previous value
+        this.value = this.value === 'confirmed' ? 'pending' : 'confirmed';
+      }
+    });
+  });
+});
+
+// Add this CSS
+const style = document.createElement('style');
+style.textContent = `
+  .payment-status-select {
+    width: auto;
+    min-width: 100px;
+  }
+  .payment-status-select.text-success {
+    color: #198754;
+  }
+  .payment-status-select.text-danger {
+    color: #dc3545;
+  }
+`;
+document.head.appendChild(style);
 </script>
-
-
-
 </html>

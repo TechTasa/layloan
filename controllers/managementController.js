@@ -230,3 +230,23 @@ exports.confirmPayment = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+// Add this to your managementController.js
+exports.updatePaymentStatus = async (req, res) => {
+  if (!req.session.user || req.session.user.userType !== 'admin') {
+    return res.status(403).json({ error: 'Unauthorized' });
+  }
+  
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    user.payment = req.body.payment;
+    await user.save();
+
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
