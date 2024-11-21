@@ -88,17 +88,17 @@
       <dotlottie-player src="https://lottie.host/43f8ad75-49c0-4305-afcc-a33af6a8e575/AlQxSN7wrr.json" background="transparent" speed="1" style="width: 100%; height: 100%;" autoplay></dotlottie-player>
     </div>
     <h1>Payment Confirmation Received!</h1>
-Thank you for completing your payment! Our team will review and verify your payment within the next 24 hours. Once approved, your account will be activated, and you'll receive a confirmation email.
+Thank you for completing your payment! 
     
     <!-- Countdown Timer Message -->
-    <div class="countdown-message" id="countdownMessage">You will be redirected in <span id="timeLeft">60</span> seconds.</div>
+    <div class="countdown-message" id="countdownMessage">You will be redirected in <span id="timeLeft">05</span> seconds.</div>
     
     <a href="/"><button class="button-3" role="button">Back To Home Page</button></a>
   </div>
 
   <script>
     let countdownTimer; // Variable to hold the countdown timer
-    let timeLeft = 60; // Set to 60 seconds
+    let timeLeft = 5; // Set to 60 seconds
 
     function startCountdown() {
       const countdownElement = document.getElementById('timeLeft');
@@ -110,7 +110,7 @@ Thank you for completing your payment! Our team will review and verify your paym
 
         if (timeLeft <= 0) {
           clearInterval(countdownTimer);
-          window.location.href = '/auth/login'; // Redirect to login after countdown
+          window.location.href = '/'; // Redirect to login after countdown
         }
       }, 1000);
     }

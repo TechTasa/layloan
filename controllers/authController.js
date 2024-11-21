@@ -203,7 +203,7 @@ exports.confirmPayment = async (req, res) => {
 
     req.session.user = newUser; // Log in the new user
     delete req.session.tempUser; // Clear temp user data
-    res.redirect('/'); // Redirect to home page
+    res.redirect('/auth/payment-confirmed'); // Redirect to home page
   } catch (err) {
     res.status(400).json({
       status: 'error',
