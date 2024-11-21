@@ -60,8 +60,9 @@ exports.signup = async (req, res) => {
 
     // Store temp user data in session
     req.session.tempUser = tempUser; 
-    // console.log(tempUser);
-    // console.log("req.session.tempUser", req.session.tempUser);
+    
+    console.log(tempUser);
+    console.log("req.session.tempUser", req.session.tempUser);
     
     return res.redirect('/auth/payment'); // Redirect to payment page
   } catch (err) {
@@ -178,6 +179,7 @@ exports.login = async (req, res) => {
 // New method to handle payment confirmation
 exports.confirmPayment = async (req, res) => {
   const tempUser = req.session.tempUser; // Retrieve temp user data from session
+  console.log("Confirm: req.session.tempUser",req.session.tempUser);
   
   
   if (!tempUser) {
