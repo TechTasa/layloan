@@ -181,7 +181,7 @@ exports.confirmPayment = async (req, res) => {
 
   try {
     // Create the user after payment confirmation
-    console.log(tempUser);
+    console.log(tempUser);  
     
     const newUser = await User.create({ 
       ...tempUser,

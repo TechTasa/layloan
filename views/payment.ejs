@@ -177,6 +177,11 @@
         <img src="/img/image4.png" alt="Enter UPI ID">
         <span class="option-text">Enter UPI ID</span>
       </div>
+      <div class="option" >
+        <img src="/img/image4.png" alt="Enter UPI ID">
+        <span class="option-text">Enter UPI ID</span>
+        <div> <a style=" width: 135px; background-color: #1065b7; text-align: center; font-weight: 800; padding: 11px 0px; color: white; font-size: 12px; display: inline-block; text-decoration: none; border-radius:3.229px; " href='https://test.payumoney.com/url/BInlLLvUMnO4' > Pay Now </a> </div>
+      </div>
     </div>
   
     <!-- Modal for Payment Processing -->
@@ -325,6 +330,22 @@
         var qrText = "upi://pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tr=" + desc + "&tn=" + note + "&url=" + url + "&cu=INR";
         window.location.href = qrText;
         openModal(qrText); // Open modal
+      }
+  
+      function payViaPayU() {
+        const amount = 2; // Example amount
+        const userEmail = "<%= tempUser.email %>"; // Get user email from session
+        const payUUrl = "https://test.payu.in/_payment"; // PayU payment URL
+
+        // Prepare the payment data
+        const paymentData = {
+            amount: amount,
+            email: userEmail,
+            // Add other necessary parameters as per PayU documentation
+        };
+
+        // Redirect to PayU payment page
+        window.location.href = payUUrl + "?amount=" + paymentData.amount + "&email=" + paymentData.email;
       }
     </script>
     <% } else { %>
