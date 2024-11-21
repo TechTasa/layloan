@@ -54,14 +54,14 @@ exports.signup = async (req, res) => {
       referralId: userReferralId,
       referCount: 0,
       referredBy: referringUser ? referringUser._id : undefined,
-      payment: false  
+      payment: true 
     };
 
 
     // Store temp user data in session
     req.session.tempUser = tempUser; 
-    console.log(tempUser);
-    console.log("req.session.tempUser", req.session.tempUser);
+    // console.log(tempUser);
+    // console.log("req.session.tempUser", req.session.tempUser);
     
     return res.redirect('/auth/payment'); // Redirect to payment page
   } catch (err) {
@@ -178,8 +178,7 @@ exports.login = async (req, res) => {
 // New method to handle payment confirmation
 exports.confirmPayment = async (req, res) => {
   const tempUser = req.session.tempUser; // Retrieve temp user data from session
-  console.log("confirm",tempUser);
-  console.log("confirm Req",req.session.tempUser);
+  
   
   if (!tempUser) {
     return res.status(400).json({ status: 'error', message: 'No user data found' });
@@ -187,7 +186,7 @@ exports.confirmPayment = async (req, res) => {
 
   try {
     // Create the user after payment confirmation
-    console.log(tempUser);  
+    
     
     const newUser = await User.create({ 
       ...tempUser,
@@ -202,9 +201,8 @@ exports.confirmPayment = async (req, res) => {
       });
     }
 
-    // req.session.user = newUser; // Log in the new user
+    req.session.user = newUser; // Log in the new user
     delete req.session.tempUser; // Clear temp user data
-    
     res.redirect('/'); // Redirect to home page
   } catch (err) {
     res.status(400).json({

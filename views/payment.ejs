@@ -153,7 +153,7 @@
       </div>
   
       <!-- Payment Options as Buttons -->
-      <div class="option" onclick="payViaQRPay()">
+      <!-- <div class="option" onclick="payViaQRPay()">
         <img src="/qrcode.png" alt="Google Pay">
         <span class="option-text">Use QR To Pay</span>
       </div>
@@ -176,11 +176,10 @@
       <div class="option" onclick="enterUpiId()">
         <img src="/img/image4.png" alt="Enter UPI ID">
         <span class="option-text">Enter UPI ID</span>
-      </div>
+      </div> -->
       <div class="option" >
         <img src="/img/image4.png" alt="Enter UPI ID">
-        <span class="option-text">Enter UPI ID</span>
-        <div> <a style=" width: 135px; background-color: #1065b7; text-align: center; font-weight: 800; padding: 11px 0px; color: white; font-size: 12px; display: inline-block; text-decoration: none; border-radius:3.229px; " href='https://test.payumoney.com/url/BInlLLvUMnO4' > Pay Now </a> </div>
+        <div><a class="autoPay" style=" width: 135px; background-color: #1065b7; text-align: center; font-weight: 800; padding: 11px 0px; color: white; font-size: 12px; display: inline-block; text-decoration: none; border-radius:3.229px; " href='https://test.payumoney.com/url/BInlLLvUMnO4' > Pay Now </a> </div>
       </div>
     </div>
   
@@ -197,156 +196,9 @@
     </div>
   
     <script>
-      let countdownTimer; // Variable to hold the countdown timer
-      let timeLeft = 15; // Set to 10 seconds
-      let qrcode = null;
-  
-          function generateQRCode(text) {
-              // Clear previous QR code if it exists
-              const qrcodeDiv = document.getElementById('qrcode');
-              qrcodeDiv.innerHTML = '';
-              
-              // Create new QR code
-              qrcode = new QRCode(qrcodeDiv, {
-                  text: text,
-                  width: 200,
-                  height: 200,
-                  colorDark: "#000000",
-                  colorLight: "#ffffff",
-                  correctLevel: QRCode.CorrectLevel.H
-              });
-          }
-  
-      function startCountdown() {
-        const countdownElement = document.getElementById('countdown');
-        countdownElement.style.display = 'block'; // Show the countdown
-        timeLeft = 15; // Reset time left
-  
-        countdownTimer = setInterval(() => {
-          const minutes = Math.floor(timeLeft / 60);
-          const seconds = timeLeft % 60;
-          countdownElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-          timeLeft--;
-  
-          if (timeLeft < 0) {
-            clearInterval(countdownTimer);
-            countdownElement.innerHTML=`Redirecting....`
-             postPaymentConfirmation(); // Call function to post confirmation
-          }
-        }, 1000);
-      }
-  
-      function postPaymentConfirmation() {
-    // Post to /confirm-payment after timeout
-    fetch('/auth/confirm-payment', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ amount: 2 }) // Example amount
-    })
-    .then(response => {
-      if (response.ok) {
-        // Redirect to the payment confirmation page
-        window.location.href = '/auth/payment-confirmed'; // Adjust this route as needed
-      } else {
-        // Handle errors
-        alert('Error confirming payment. Please try again.');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Error confirming payment. Please try again.');
-    });
-  }
-  
-  function openModal(qrText) {
-              document.getElementById('paymentModal').style.display = 'flex';  
-              generateQRCode(qrText); // Generate QR code with the payment URL
-              startCountdown();
-          }
-  
-      function closeModal() {
-        document.getElementById('paymentModal').style.display = 'none'; // Hide the modal
-        clearInterval(countdownTimer); // Clear the countdown
-      }
-  
-      function payViaGooglePay() {
-        var name = "MohammadTasaduqKhan";
-        var vpa = "tasaduqkhan2222-1@okaxis";
-        var amount = "2";
-        var note = "<%= tempUser.email %>";
-        var desc = "LayLoan";
-        var url = "";
-        var qrText = "tez://upi/pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tr=" + desc + "&tn=" + note + "&url=" + url + "&cu=INR";
-        window.location.href = qrText;
-        openModal(qrText); // Open modal
-        
-      }
-      function payViaQRPay() {
-              var name = "MohammadTasaduqKhan";
-              var vpa = "tasaduqkhan2222-1@okaxis";
-              var amount = "2";
-              var note = "<%= tempUser.email %>";
-              var desc = "LayLoan";
-              var url = "";
-              var qrText = "upi://pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tr=" + desc + "&tn=" + note + "&url=" + url + "&cu=INR";
-              openModal(qrText);
-              console.log(qrText);
-              
-      }
-  
-      function payViaPaytm() {
-        var name = "Mohammad Tasaduq Khan";
-        var vpa = "tasaduqkhan2222-1@okaxis";
-        var amount = "2";
-        var note = "<%= tempUser.email %>";
-        var desc = "LayLoan";
-        var url = "";
-        var qrText = "paytmmp://pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tr=" + desc + "&tn=" + note + "&url=" + url + "&cu=INR";
-        window.location.href = qrText;
-        openModal(qrText); // Open modal
-      }
-  
-      function payViaPhonePe() {
-        var name = "Mohammad Tasaduq Khan";
-        var vpa = "tasaduqkhan2222-1@okaxis";
-        var amount = "2";
-        var note = "<%= tempUser.email %>";
-        var desc = "LayLoan";
-        var url = "";
-        var qrText = "phonepe://pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tr=" + desc + "&tn=" + note + "&url=" + url + "&cu=INR";
-        window.location.href = qrText;
-        openModal(qrText); // Open modal
-      }
-  
-      function enterUpiId() {
-        var name = "Mohammad Tasaduq Khan";
-        var vpa = "tasaduqkhan2222-1@okaxis";
-        var amount = "2";
-        var note = "<%= tempUser.email %>";
-        var desc = "LayLoan";
-        var url = "";
-        var qrText = "upi://pay?pn=" + name + "&pa=" + vpa + "&am=" + amount + "&tr=" + desc + "&tn=" + note + "&url=" + url + "&cu=INR";
-        window.location.href = qrText;
-        openModal(qrText); // Open modal
-      }
-  
-      function payViaPayU() {
-        const amount = 2; // Example amount
-        const userEmail = "<%= tempUser.email %>"; // Get user email from session
-        const payUUrl = "https://test.payu.in/_payment"; // PayU payment URL
-
-        // Prepare the payment data
-        const paymentData = {
-            amount: amount,
-            email: userEmail,
-            // Add other necessary parameters as per PayU documentation
-        };
-
-        // Redirect to PayU payment page
-        window.location.href = payUUrl + "?amount=" + paymentData.amount + "&email=" + paymentData.email;
-      }
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('.autoPay').click();
+      });
     </script>
     <% } else { %>
       <script>
